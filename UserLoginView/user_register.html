@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="user_register.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>userRegister</title>
+</head>
+<body>
+    <main>
+        <div class="error-message">
+            <p>登録が失敗しました！</p>
+        </div>
+        <div class="wrapper">
+            <form action="#" method="post">
+                <h1>登録</h1>
+                <div class="input-box">
+                    <input type="text" id="useremail" name="useremail" placeholder="メールアドレス" required>
+                    <i class='bx bxs-envelope'></i>
+                </div>
+                <div class="input-box">
+                    <input type="text" id="username" name="username" placeholder="ユーザー名" required>
+                    <i class='bx bxs-user'></i>
+                </div>
+                <div class="input-box">
+                    <input type="text" id="userPassword" name="userPassword" placeholder="パスワード" required>
+                    <i class='bx bxs-lock-alt' ></i>
+                </div>
+                <div class="remember">
+                    <label for=""><input type="checkbox">パスワードを保存</label>
+                </div>
+                <div>
+                    <button type="submit" class="btn">登録</button>
+                </div>
+                <div class="register-link">
+                    <p>既にアカウントを登録された？<a href="#">ログイン</a></p>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+</html>
