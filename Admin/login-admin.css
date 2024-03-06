@@ -1,0 +1,142 @@
+全体設置
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /*文字*/
+    font-family: "poppins",sans-serif;
+    /*真ん中*/
+    align-items: center;
+    /*点を抜く*/
+    list-style: none;
+    /*[a]の線の抜く*/
+    text-decoration: none;
+}
+
+body{
+    /*高*/
+    min-height: 100vh;
+    display: flex;
+    /*真ん中*/
+    align-items: center;
+    justify-content: center;
+    /*背景画像*/
+    background-image: url(adminlogin.jpg);
+    /*背景図サイズの設置*/
+    background-size: cover;
+}
+
+/*【login】に関する*/
+.login{
+    /*相対位置を設置*/
+    position: relative;
+    /*透明する*/
+    background: transparent;
+    /*背景朦朧*/
+    backdrop-filter: blur(10px);
+    /*辺線*/
+    border: 1px solid rgb(199, 195, 195);
+    /*朦朧の設置*/
+    box-shadow: 0 0 50px rgb(199, 195, 195);
+    /*boxのサイズ*/
+    padding: 40px;
+    /*並ぶ*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*boxサイズ*/
+    width: 420px;
+}
+
+.login-screen{
+    /*データと周囲の距離*/
+    padding: 20px;
+}
+
+/*文字【login】真ん中に*/
+.login-title h1{
+    /*文字大きさ*/
+    font-size: 30px;
+    /*真ん中*/
+    text-align: center;
+    /*文字の太さ*/
+    font-weight: 600px;
+    /*文字の色*/
+    color: #fff;
+}
+
+/*入力欄について*/
+input{
+    /*選中提示*/
+    border: 2px solid #fff;
+    /*入力欄の角曲がる　修正*/
+    border-radius: 20px;
+    /*入力欄長さ*/
+    width: 100%;
+    height: 40px;
+    /*背景透明*/
+    background-color:transparent;
+    /*色*/
+    color: #fff;
+    /*入力欄の文字サイズ*/
+    font-size: 16px;
+    /*入力欄サイズ*/
+    padding: 5px 10px;
+    /**/
+    outline: none;
+    /*外辺との距離*/
+    margin: 3px;
+}
+
+.control-group input::placeholder{
+    color: #fff;
+    margin: auto;
+    margin-bottom: 20px;
+    width: 250px;
+}
+
+/*管理者名のアイコン*/
+#adminName::placeholder{
+    font-size: 14px;
+    position: relative;
+    bottom: 2px;
+    text-align: center;
+}
+
+#password::placeholder{
+    font-size: 14px;
+    position: relative;
+    bottom: 2px;
+    text-align: center;
+}
+
+/*飾り*/
+.button{
+    /*文字サイズ*/
+    font-size: 20px;
+    /*長さ*/
+    width: 250px;
+    /*幅さ*/
+    padding: 10px 0;
+    /*選択ヒント*/
+    border: 2px solid transparent;
+    /**/
+    border-radius: 20px;
+}
+
+/*ボタン選択後色ヒント*/
+.button:hover{
+    background-color: rgb(247,144,161);
+}
+
+
+/*【アカウントの作成】*/
+.logion-register{
+    /*独立化*/
+    display: block;
+    /*文字サイズ*/
+    font-size: 15px;
+    /*上との距離*/
+    margin-top: 12px;
+}
+
