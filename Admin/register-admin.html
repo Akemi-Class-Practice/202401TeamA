@@ -4,8 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RegisterAdmin</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="register-admin.css">
 </head>
 <body>
-    
+    <section class="login">
+        <div class="error">
+            <p>登録が失敗しました！</p>
+        </div>
+        <div class="login-screen" method="post">
+            <div class="login-title">
+                <h1>管理者登録</h1>
+            </div>
+            <form class="login-form">
+                <div class="control-group">
+                    <input type="text"  id="login-email" name="email" placeholder="メールアドレス" required>
+                    <i class='bx bxs-envelope' ></i>
+                </div>
+                <div class="control-group">
+                    <input type="text"  id="login-name" name="admin-name" placeholder="管理者番号" required>
+                    <i class='bx bxs-user'></i>
+                </div>
+                <div class="control-group">
+                    <input type="password"  id="login-password" name="password" placeholder="パスワード" >
+                    <i class='bx bxs-lock-alt'></i>
+                </div>
+                <div>
+                    <button type="submit" class="button">登録</button>
+                </div>
+                <div class="register-link">
+                    <p>既にアカウントを登録された？<a href="#">ログイン</a></p>
+                </div>
+            </form>
+        </div>
+    </section>
 </body>
 </html>

@@ -163,19 +163,28 @@ body{
     text-decoration: underline;
 }
 
+/*メールアドレス*/
+.bxs-envelope{
+    position: absolute;
+    top: 30%;
+    padding: 23px;
+    margin: 0 2px;
+}
+
 /*ユーザー画像の設置*/
 .bxs-user{
     position: absolute;
     top: 30%;
-    padding: 35px;
-    margin: 0 -25px;
+    padding: 86px;
+    margin: 0 -62px;
 }
 
 /*lockの画像*/
 .bxs-lock-alt{
     position: absolute;
     top: 50%;
-    margin: 9px 10px;
+    padding: 50px;
+    margin: 1px -25px;
 }
 
 /*エラー文*/
@@ -185,4 +194,3 @@ body{
     padding: 35px;
     margin: 0 -25px;
 }
-
