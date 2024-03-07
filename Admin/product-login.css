@@ -1,0 +1,102 @@
+*{
+    padding: 0;
+    margin: 0;
+    /*点を除く*/
+    list-style: none;
+    /*下の線を除く*/
+    text-decoration: none;
+    /*文字*/
+    color: black;
+}
+
+/*タイトルの部分*/
+header{
+    /*背景透明する*/
+    background-color: transparent;
+    /*メニュー文字横並び*/
+    display: flex;
+    /*【logo】と【メニュー文字】を分ける*/
+    justify-content: space-between;
+    /*垂直*/
+    align-items: center;
+    /*上下の距離*/
+    padding: 10px 0;
+    /*ヘッダー部分を固定*/
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+body{
+    /*上下の距離*/
+    padding-top: 200px;
+}
+
+
+/*【logo】の部分*/
+.header-logo{
+    width: 100px;
+    /*辺との距離*/
+    margin: 10px;
+}
+
+/*logoの画像のサイズ*/
+.header-logo img{
+    width: 100%;
+}
+
+/*【メニュークラス】の部分*/
+.menu{
+    /*文字横並び*/
+    display: flex;
+    /*文字間の距離*/
+    gap: 0 20px;
+    /*文字対辺の距離*/
+    margin-right: 30px;
+}
+
+/*【新たな商品を追加】タイトルの部分*/
+.product-login h2{
+    /*真ん中*/
+    text-align: center;
+}
+
+/**/
+.product-login{
+    /*文字データの比率並ぶ*/
+    width: 90%;
+    margin: 0 auto;
+}
+
+/*【登録内容】の部分*/
+.list{
+    background-color: brown;
+    /*真ん中*/
+    text-align: center;
+    margin: 100px auto;
+    width: 400px;
+}
+
+/**/
+.label{
+    width: 100px;
+}
+
+.title-1{
+    /*テキストと文字の距離*/
+    display: flex;
+    gap: 0 20px;
+    /*【文字】【入力欄】間の距離*/
+    margin: 20px 0;
+}
+
+/*【ボタン】の部分*/
+.button{
+    text-align: center;
+}
+
+/*【商品詳細】のテキストの固定*/
+textarea{
+    resize: vertical;
+}

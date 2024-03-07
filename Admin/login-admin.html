@@ -4,20 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LoginAdmin</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="login-admin.css">
 </head>
 <body>
     <section class="login">
-        <div class="login-screen" method="">
+        <div class="error">
+            <p>ログインが失敗しました！</p>
+        </div>
+        <div class="login-screen" method="post">
             <div class="login-title">
-                <h1>管理者登録</h1>
+                <h1>管理者ログイン</h1>
             </div>
             <form class="login-form">
                 <div class="control-group">
-                    <input type="text"  id="login-name" name="adminName" placeholder="管理者番号" required>
+                    <input type="text"  id="login-name" name="admin-name" placeholder="管理者番号" required>
+                    <i class='bx bxs-user'></i>
                 </div>
                 <div class="control-group">
                     <input type="password"  id="login-password" name="password" placeholder="パスワード" >
+                    <i class='bx bxs-lock-alt'></i>
                 </div>
                 <div class="remember">
                     <label for=""><input type="checkbox">パスワードを保存</label>
