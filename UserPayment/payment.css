@@ -1,0 +1,74 @@
+*{
+    padding: 0;
+    margin: 0;
+    /*点を除く*/
+    list-style: none;
+    /*下の線を除く*/
+    text-decoration: none;
+    /*文字*/
+    color: black;
+}
+
+/*タイトルの部分*/
+header{
+    /*背景透明する*/
+    background-color: transparent;
+    /*メニュー文字横並び*/
+    display: flex;
+    /*【logo】と【メニュー文字】を分ける*/
+    /*justify-content: space-between;*/
+    /*垂直*/
+    align-items: center;
+    /*上下の距離*/
+    padding: 10px 0;
+    /*ヘッダー部分を固定*/
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+body{
+    /*上下の距離*/
+    padding-top: 200px;
+}
+
+/*【LOGO】の部分*/
+.header-logo{
+    width: 100px;
+    /*辺との距離*/
+    margin: 10px;
+}
+
+/*logoの画像サイズ*/
+.header-logo img{
+    width: 130%;
+}
+
+/*【menu-1】クラスの部分*/
+.menu-1{
+    /*文字横並び*/
+    display: flex;
+    /*文字間の距離*/
+    gap: 0 20px;
+    /*文字対辺の距離*/
+    margin-left: 200px;
+}
+
+/*タイトルの部分*/
+.title{
+    /*真ん中*/
+    text-align: center;
+    /*文字サイズ*/
+    font-size: 50px;
+    /*下との距離*/
+    margin-bottom: 100px;
+}
+
+#summary .menu-2 li {
+    width: 48%;
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 60px;
+    margin-bottom: 32px;
+}
