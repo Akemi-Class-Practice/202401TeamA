@@ -1,0 +1,163 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: "Google Sans", "Roboto";
+    color: #696969;
+    font-size: 20px;
+}
+
+/*Header Size*/
+.header{
+    height: 100vh;
+    width: 100%;
+    padding: 0 8%;
+    position: relative;
+}
+
+/*adjust li position to corner right*/
+nav{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    /*Fix the menu when scroll down*/
+    position: fixed;
+}
+
+/*adjust li position from straight to row*/
+li{
+    display: inline-block;
+    margin: 0 15px;  
+}
+
+/*remove li underline*/
+li a{
+    text-decoration: none;
+    padding: 5px 0;
+    width: auto;
+    color: white;
+}
+
+li a:hover{
+    color:rgb(66, 2, 126);
+}
+
+#dropdown {
+    border-radius: 18px;
+    border: black;
+    padding: 8px;
+    background-color: black;
+    color: white;
+}
+
+
+/*adjust image size*/
+img{
+    margin:10px;
+    width: 100px;
+}
+
+.btn{
+    color:white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    
+}
+
+.bx-menu{
+    color: black;
+}
+
+.search{
+    border-radius: 20px;
+    padding: 6px;
+    border: 2px solid transparent;
+}
+
+.bx-search{
+  position: relative;
+  right: 25px;
+
+}
+
+video{
+    width: 100%;
+}
+
+h2{
+ text-align: center;
+ margin: 30px;
+ width: 100%;
+}
+
+.popular-products{
+    display: flex;
+    justify-content: center;
+    /*折り返しの設定*/
+    flex-wrap: wrap;
+    gap: 20px 20px; 
+    /* animation: slideRepeat 20s linear infinite;    */
+}
+
+/* @keyframes slideRepeat {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+} */
+
+.products-article{
+    height: 650px;
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+    /*折り返しの設定*/
+    flex-wrap: wrap;
+    gap:20px 20px;
+    /*Move from bottom to top*/
+    animation: slideUp 4s ease-in-out;
+}
+
+
+
+h4{
+    width: 100%;
+    text-align: center;
+}
+
+.product{
+    width: 25%;
+    border: 2px solid black;
+    box-sizing: border-box;
+    box-shadow: 5px 10px #808080 ;
+    padding-left: 50px;
+}
+
+footer{
+    width: 100%;
+    height: 600px;
+    background-color: black;
+    padding: 30px 30px;
+}
+
+
+iframe{
+    width: 100%;
+}
+
+/*CSS animation*/
+@keyframes slideUp {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+ 
+
+  
+
