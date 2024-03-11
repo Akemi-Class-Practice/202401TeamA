@@ -6,7 +6,7 @@
     /*下の線を除く*/
     text-decoration: none;
     /*文字*/
-    color: black;
+    color: rgb(217, 238, 237);
 }
 
 /*タイトルの部分*/
@@ -31,6 +31,7 @@ header{
 body{
     /*上下の距離*/
     padding-top: 200px;
+    background-color: black;
 }
 
 /*【LOGO】の部分*/
@@ -44,16 +45,38 @@ body{
 .header-logo img{
     width: 130%;
 }
-
+/*メニュー横並び*/
+nav{
+    display: flex;
+    /*文字対辺の距離*/
+    margin-left: 200px;
+    margin-right: 20px;
+    align-self: center;
+}
 /*【menu-1】クラスの部分*/
 .menu-1{
     /*文字横並び*/
     display: flex;
     /*文字間の距離*/
     gap: 0 20px;
-    /*文字対辺の距離*/
-    margin-left: 200px;
+    
 }
+
+/*下拉菜单*/
+.menu-all{
+    /*背景色*/
+    background-color: black;
+    /*右側文字との距離*/
+    margin-right: 20px;
+    /*欄の長さ*/
+    width: 140px;
+    /*角曲がるの修正*/
+    border-radius: 10px;
+    /*線を透明*/
+    border:transparent;
+}
+
+
 
 /*タイトルの部分*/
 .title{
@@ -65,10 +88,71 @@ body{
     margin-bottom: 100px;
 }
 
-#summary .menu-2 li {
-    width: 48%;
+.menu-title{
+    color:black
+}
+
+#summary .menu-2 li{
+    width: 30%;
     background-color: #fff;
     border-radius: 20px;
-    padding: 60px;
-    margin-bottom: 32px;
+    /*padding: 60px;
+    margin-bottom: 32px;*/
+}
+
+/*画像サイズ*/
+ul menu-2 img{
+    max-width: 100%;
+}
+
+ul img{
+    width: 210px;
+    height: 160px;
+}
+
+/**/
+.menu-2{
+    border: 2px solid;
+    padding: 30px;
+    /*横並び*/
+    width: 80%;
+    /*支払い画面したの文字を真ん中*/
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 auto;
+    gap: 20px 20px;
+}
+
+.button{
+    /*真ん中*/
+    text-align: center;
+    /*上との距離*/
+    margin: 40px;
+}
+
+
+.payments{
+    background-color:black;
+    /*角曲がるの修正*/
+    border-radius: 5px;
+    /*選択ヒント*/
+    border: 2px solid;
+    /*ボタンサイズ*/
+    font-size: 20px;
+    /*左右との距離*/
+    padding: 20px 20px;
+    /*上との距離*/
+    margin: 40px;
+}
+
+.payments:hover{
+    color: blueviolet;
+}
+
+input{
+    /*角曲がるの修正*/
+    border-radius: 15px;
+    padding: 5px;
 }
