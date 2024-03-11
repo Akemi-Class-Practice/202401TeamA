@@ -31,10 +31,6 @@ header{
 body{
     /*上下の距離*/
     padding-top: 200px;
-    /*背景図*/
-    background-image: url(/img/adminlogin.jpg);
-    /*背景図サイズ*/
-    background-size: cover;
 }
 
 
@@ -64,8 +60,6 @@ body{
 .product-login h2{
     /*真ん中*/
     text-align: center;
-    /*文字色*/
-    color: rgb(63, 72, 97);
 }
 
 /**/
@@ -77,24 +71,16 @@ body{
 
 /*【登録内容】の部分*/
 .list{
-    /*透明する*/
-    background: transparent;
-    /*背景朦朧*/
-    backdrop-filter: blur(10px);
-    border: 1px solid rgb(199, 195, 195);
-    box-shadow: 0 0 50px rgb(199, 195, 195);
+    background-color: brown;
     /*真ん中*/
     text-align: center;
-    margin: 50px auto;
+    margin: 100px auto;
     width: 400px;
 }
 
-/*【商品】シリーズ*/
+/**/
 .label{
     width: 100px;
-    margin: 8px;
-    /*文字色*/
-    color: #fff;
 }
 
 .title-1{
@@ -105,60 +91,12 @@ body{
     margin: 20px 0;
 }
 
-/*【入力欄】の部分*/
-.title-1 input{
-    /*入力欄背景色*/
-    background-color: rgb(217, 238, 237);
-    /*角曲がるの修正*/
-    border-radius: 5px;
-}
-
 /*【ボタン】の部分*/
 .button{
     text-align: center;
 }
 
-.toroku:hover{
-    background-color: rgb(217, 238, 237);
-}
-
 /*【商品詳細】のテキストの固定*/
 textarea{
     resize: vertical;
-}
-
-/*【登録】【キャンセル】の部分*/
-input{
-    /*選択ヒント*/
-    border: 2px solid transparent;
-    /*入力文字サイズ*/
-    font-size: 16px;
-    /*文字サイズ*/
-    font-weight: 200;
-    /*入力欄サイズ*/
-    padding: 2px 0;
-    /*入力欄の長さ*/
-    width: 250px;
-    /**/
-    box-sizing: border-box;
-}
-
-/*【登録ボタン】の部分*/
-.button input{
-    /*角曲がるの修正*/
-    border-radius: 5px;
-}
-
-
-/*【商品詳細】の部分*/
-textarea{
-    /*入力欄背景色*/
-    background-color: rgb(217, 238, 237);
-    /*角曲がるの修正*/
-    border-radius: 5px;
-}
-
-.bx-search-alt-2 input{
-    /*角曲がるの修正*/
-    border-radius: 5px;
 }
