@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="user_login.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>userLogin</title>
+</head>
+<body>
+    <main>
+        <div class="error-message">
+            <p>ログインが失敗しました！</p>
+        </div>
+    <div class="wrapper">
+        <form action="#" method="post">
+            <h1>ログイン</h1>
+            <div class="input-box">
+                <input type="text" id="username" name="username" placeholder="ユーザー名" required>
+                <i class='bx bxs-user'></i>
+            </div>
+            <div class="input-box">
+                <input type="text" id="userPassword" name="userPassword" placeholder="パスワード" required>
+                <i class='bx bxs-lock-alt' ></i>
+            </div>
+            <div class="remember">
+                <label for=""><input type="checkbox">パスワードを保存</label>
+            </div>
+            <div>
+                <button type="submit" class="btn">ログイン</button>
+            </div>
+            <div class="register-link">
+                <p>アカウントがない方？<a href="#">登録</a></p>
+            </div>
+           
+        </form>
+    </div>
+</main>
+</body>
+</html>

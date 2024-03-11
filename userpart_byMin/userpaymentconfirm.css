@@ -1,0 +1,153 @@
+
+*{
+    padding: 0;
+    margin: 0;
+    font-family: "Google Sans", "Roboto";
+    color:white;
+    /* box-sizing: border-box; */
+    font-size: 20px;
+}
+
+body{
+    background-color: black;
+}
+
+header{
+    padding: 80px;
+}
+
+nav{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    /*Fix the menu when scroll down*/
+    position: fixed;
+}
+
+
+/*adjust li position to corner right*/
+ul{
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+}
+
+/*adjust li position from straight to row*/
+li{
+    padding:25px;
+    margin:25px;
+}
+
+
+/*remove li underline*/
+li a{
+    text-decoration: none;
+    padding: 5px 0;
+    width: auto;
+    color:  white;
+
+}
+
+.dropdown{
+    background-color: black;
+}
+
+
+/*adjust image size*/
+img{
+    width: 100px;
+    height: 100px;
+}
+
+/*Color change after clicked*/
+a:hover{
+    color: violet;
+}
+
+#dropdown{
+    display: flex;
+    margin: 50px 30px;
+    background-color: black;
+    border: 2px solid transparent;
+    /* border-radius: 20px; */
+    color: white;
+    display: flex;
+    font-size: 20px;
+}
+
+
+.search{
+    border-radius: 20px;
+    height: 20px;
+    padding:6px;
+    margin-top: 50px;
+}
+.bx-search{
+  position: relative;
+  right: 25px;
+  margin-top: 55px;
+  color: black;
+} 
+
+h1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 80px;
+    font-size: 30px;
+}
+
+img{
+    border-radius: 50%;
+}
+
+.product{
+    border: 2px solid white;
+    border-radius: 20px;
+    padding: 50px;   
+}
+
+.product p{
+    float: right;
+}
+
+.payment-confirmation input{
+    margin: 20px 500px;
+    background-color: black;
+    border: 3px solid white;
+    border-radius: 5px;
+    padding: 0px 50px;
+}
+
+.card-details input{
+    margin: 20px 500px;
+    text-align: center;
+    background-color: black;
+    border: 3px solid white;
+    border-radius: 5px;
+    padding: 0px 50px;
+}
+
+.card-secretnumber input{
+    margin: 20px 500px;
+    background-color: black;
+    border: 3px solid white;
+    border-radius: 5px;
+    position: absolute;
+    padding: 0px 50px;
+    text-align: center;
+}
+
+.submit{
+    background-color: black;
+    text-align: center;
+    margin: 80px 500px;
+    border: 3px solid white;
+    border-radius: 5px;
+    padding: 0px 140px;
+}
+
+.submit:active{
+    color: violet;
+}
