@@ -113,6 +113,11 @@ body{
     border-radius: 5px;
 }
 
+/*【商品詳細】のテキストの固定*/
+textarea{
+    resize: vertical;
+}
+
 /*【ボタン】の部分*/
 .button{
     text-align: center;
@@ -122,10 +127,6 @@ body{
     background-color: rgb(217, 238, 237);
 }
 
-/*【商品詳細】のテキストの固定*/
-textarea{
-    resize: vertical;
-}
 
 /*【登録】【キャンセル】の部分*/
 input{
@@ -156,6 +157,16 @@ textarea{
     background-color: rgb(217, 238, 237);
     /*角曲がるの修正*/
     border-radius: 5px;
+}
+
+/*【削除】の部分*/
+.delete{
+    width: 200px;
+    margin: 30px;
+}
+
+.delete:hover{
+    background-color: rgb(217, 238, 237);
 }
 
 .bx-search-alt-2 input{

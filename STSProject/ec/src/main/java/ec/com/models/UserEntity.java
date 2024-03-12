@@ -1,5 +1,5 @@
 package ec.com.models;
 
-public class UesrEntity {
+public class UserEntity {
 
 }
