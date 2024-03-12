@@ -14,7 +14,7 @@ public class AdminServices {
 	
 	//管理者番号登録の部分
 	public boolean createAdmin(String adminName, String adminEmail,String adminPassword ) {
-	if(adminRepo.findByAminName(adminName) == null) {
+	if(adminRepo.findByAdminName(adminName) == null) {
 		adminRepo.save(new AdminEntity(adminName,adminEmail,adminPassword,0));
 		return true;
 	}else {
@@ -23,7 +23,12 @@ public class AdminServices {
   }
 	//管理者のログインチェック
 	public AdminEntity adminCheckLogin(String adminName,String adminPassword) {
-		AdminEntity adminEntity = adminRepo.findByAminNameAndAdminPassword(adminName,adminPassword);
+		AdminEntity adminEntity = adminRepo.findByAdminNameAndAdminPassword(adminName,adminPassword);
+		if(adminEntity == null) {
+			return null;
+		}else {
+			return adminEntity;
+		}
 	}
 	
 }
