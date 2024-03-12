@@ -1,12 +1,17 @@
 package ec.com.repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import ec.com.models.AdmiEntity;
 
-public interface AdminRepository extends JpaRepository<AdmiEntity, Long> {
-	//Register new admi
-	//AdmiEntity save(AdmiEntity admiEntity);
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import ec.com.models.AdminEntity;
+
+public interface AdminRepository extends JpaRepository<AdminEntity, Long> {
+	//Register new admin
+	AdminEntity save(AdminEntity adminEntity);
 	
 	//Find by admiID
-	AdmiEntity findByAdmiID (Long Id);
+	AdminEntity findByAdminId (Long Id);
+	
+	//Find by adminName
+	AdminEntity findByAminName(String adminName);
 }
