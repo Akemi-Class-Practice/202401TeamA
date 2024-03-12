@@ -1,9 +1,13 @@
 package ec.com.models;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,6 +25,8 @@ public class AdminEntity {
 	private String adminPassword;
 	private Integer deleteFlg;
 	
+	@OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
+	private List<ProductEntity> products; // 一対多の関連
 	
 	//空のコンストラクタ
 	public AdminEntity() {
@@ -28,12 +34,13 @@ public class AdminEntity {
 	}
 	
 	//コンストラクタ
-	public AdminEntity(String adminName, String adminEmail, String adminPassword) {
+	public AdminEntity(String adminName, String adminEmail, String adminPassword, Integer deleteFlg) {
 		this.adminName = adminName;
 		this.adminEmail = adminEmail;
 		this.adminPassword = adminPassword;
+		this.deleteFlg = deleteFlg;
 	}
-	
+
 	
 	//カプセル化　Get Set
 	public Long getAdminId() {
@@ -76,8 +83,15 @@ public class AdminEntity {
 		this.deleteFlg = deleteFlg;
 	}
 
+	public List<ProductEntity> getProducts() {
+		return products;
+	}
 
-
+	public void setProducts(List<ProductEntity> products) {
+		this.products = products;
+	}
+	
+	
 
 	
 }
