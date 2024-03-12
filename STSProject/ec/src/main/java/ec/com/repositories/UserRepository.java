@@ -3,6 +3,7 @@ package ec.com.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import ec.com.models.AdminEntity;
+import ec.com.models.UserEntity;
 
 public interface UserRepository extends JpaRepository<UserEntity,Long> {
 	//Save new user
