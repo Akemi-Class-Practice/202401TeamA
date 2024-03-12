@@ -1,15 +1,21 @@
 package ec.com.models;
 
+import java.sql.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table
 public class ProductEntity {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long productId;
@@ -17,9 +23,14 @@ public class ProductEntity {
 	private String productName;
 	private String productPrice;
 	private String productDetail;
-	private String productImgge;
-	private String registerDate;
+	private String productImage;
+	private Integer deleteFlg;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private	Date registerDate;
+	@ManyToOne
+	@JoinColumn(name = "admin_id")
+	private AdminEntity admin; // 外部キーとの関連
 	
 	//空　コンストラクタ
 	public ProductEntity() {
@@ -27,13 +38,16 @@ public class ProductEntity {
 	}
 	
 	//コンストラクタ
-	public ProductEntity(String productName, String productPrice, String productDetail, String productImgge,
-			String registerDate) {
+
+	public ProductEntity(String productName, String productPrice, String productDetail, String productImage,
+			Integer deleteFlg, Date registerDate, AdminEntity admin) {
 		this.productName = productName;
 		this.productPrice = productPrice;
 		this.productDetail = productDetail;
-		this.productImgge = productImgge;
+		this.productImage = productImage;
+		this.deleteFlg = deleteFlg;
 		this.registerDate = registerDate;
+		this.admin = admin;
 	}
 
 	
@@ -70,21 +84,42 @@ public class ProductEntity {
 		this.productDetail = productDetail;
 	}
 
-	public String getProductImgge() {
-		return productImgge;
+	public String getProductImage() {
+		return productImage;
 	}
 
-	public void setProductImgge(String productImgge) {
-		this.productImgge = productImgge;
+	public void setProductImage(String productImage) {
+		this.productImage = productImage;
 	}
 
-	public String getRegisterDate() {
+	public Integer getDeleteFlg() {
+		return deleteFlg;
+	}
+
+	public void setDeleteFlg(Integer deleteFlg) {
+		this.deleteFlg = deleteFlg;
+	}
+
+	public Date getRegisterDate() {
 		return registerDate;
 	}
 
-	public void setRegisterDate(String registerDate) {
+	public void setRegisterDate(Date registerDate) {
 		this.registerDate = registerDate;
 	}
+
+	public AdminEntity getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(AdminEntity admin) {
+		this.admin = admin;
+	}
+
+
+	
+
+
 	
 		
 }

@@ -1,9 +1,13 @@
 package ec.com.models;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -17,18 +21,24 @@ public class UserEntity {
 	private String userName;
 	private String userPassword;
 	private String userEmail;
+	private Integer deleteFlg;
 	
+	@OneToMany(mappedBy = "transaction_history", cascade = CascadeType.ALL)
+	private List<TransactionHistoryEntity> transactionHistory; // 一対多の関連
 
 	//空　コンストラクタ
-	public UserEntity(Long userId, String userName, String userPassword, String userEmail) {
+	public UserEntity() {
 
 	}
 	
 	//コンストラクタ
-	public UserEntity(String userName, String userPassword, String userEmail) {
+	public UserEntity(String userName, String userPassword, String userEmail, Integer deleteFlg,
+			List<TransactionHistoryEntity> transactionHistory) {
 		this.userName = userName;
 		this.userPassword = userPassword;
 		this.userEmail = userEmail;
+		this.deleteFlg = deleteFlg;
+		this.transactionHistory = transactionHistory;
 	}
 
 	//カプセル化
@@ -63,5 +73,24 @@ public class UserEntity {
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
 	}
+
+	public Integer getDeleteFlg() {
+		return deleteFlg;
+	}
+
+	public void setDeleteFlg(Integer deleteFlg) {
+		this.deleteFlg = deleteFlg;
+	}
+
+	public List<TransactionHistoryEntity> getTransactionHistory() {
+		return transactionHistory;
+	}
+
+	public void setTransactionHistory(List<TransactionHistoryEntity> transactionHistory) {
+		this.transactionHistory = transactionHistory;
+	}
+
+
+
 	
 }
