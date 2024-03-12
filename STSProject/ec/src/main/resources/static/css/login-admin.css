@@ -1,0 +1,188 @@
+全体設置
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /*文字*/
+    font-family: "poppins",sans-serif;
+    /*真ん中*/
+    align-items: center;
+    /*点を抜く*/
+    list-style: none;
+    /*[a]の線の抜く*/
+    text-decoration: none;
+}
+
+body{
+    /*高*/
+    min-height: 100vh;
+    display: flex;
+    /*真ん中*/
+    align-items: center;
+    justify-content: center;
+    /*背景画像*/
+    background-image: url(/img/adminlogin.jpg);
+    /*背景図サイズの設置*/
+    background-size: cover;
+}
+
+/*【login】に関する*/
+.login{
+    /*相対位置を設置*/
+    position: relative;
+    /*透明する*/
+    background: transparent;
+    /*背景朦朧*/
+    backdrop-filter: blur(10px);
+    /*辺線*/
+    border: 1px solid rgb(199, 195, 195);
+    /*朦朧の設置*/
+    box-shadow: 0 0 50px rgb(199, 195, 195);
+    /*boxのサイズ*/
+    padding: 40px;
+    /*並ぶ*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*boxサイズ*/
+    width: 420px;
+}
+
+.login-screen{
+    /*データと周囲の距離*/
+    padding: 20px;
+}
+
+/*文字【login】真ん中に*/
+.login-title h1{
+    /*文字大きさ*/
+    font-size: 30px;
+    /*真ん中*/
+    text-align: center;
+    /*文字の太さ*/
+    font-weight: 600px;
+    /*文字の色*/
+    color: #fff;
+}
+
+
+/*入力欄について*/
+.control-group input{
+    /*選中提示*/
+    border: 2px solid #fff;
+    /*入力欄の角曲がる　修正*/
+    border-radius: 20px;
+    /*入力欄長さ*/
+    width: 100%;
+    height: 40px;
+    /*背景透明*/
+    background-color:transparent;
+    /*色*/
+    color: #fff;
+    /*入力欄の文字サイズ*/
+    font-size: 16px;
+    /*入力欄サイズ*/
+    padding: 5px 10px;
+    /**/
+    outline: none;
+    /*外辺との距離*/
+    margin: 3px;
+    text-align: center;
+}
+
+.control-group{
+    margin: 5px -10px;
+    display: flex;
+}
+
+.control-group input::placeholder{
+    color: #fff;
+    /*margin: auto;*/
+    margin-bottom: 20px;
+    /*width: 250px;*/
+    text-align: center;
+}
+
+/*管理者名のアイコン*/
+#login-name::placeholder{
+    font-size: 14px;
+    position: relative;
+    bottom: 2px;
+    text-align: center;
+}
+
+#login-password::placeholder{
+    font-size: 14px;
+    position: relative;
+    bottom: 2px;
+    text-align: center;
+}
+
+.login .remember{
+    font-size: 16px;
+    color: #fff;
+    align-items: center;
+    text-align: center;
+}
+
+
+
+/*飾り*/
+.button{
+    /*長さ*/
+    width: 100%;
+    height: 40px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*文字サイズ*/
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    outline: none;
+    border: none;
+    background: #fff;
+    cursor: pointer;
+    margin: auto 0;
+    
+}
+
+/*問い合わせリンク*/
+.register-link p{
+    /*色*/
+    color: white;
+    /*文字の太さ*/
+    font-weight: 600;
+    /*真ん中*/
+    text-align: center;
+}
+
+/*線の追加*/
+.register-link p a:hover{
+    text-decoration: underline;
+}
+
+/*ユーザー画像の設置*/
+.bxs-user{
+    position: absolute;
+    top: 30%;
+    padding: 35px;
+    margin: 0 -25px;
+}
+
+/*lockの画像*/
+.bxs-lock-alt{
+    position: absolute;
+    top: 50%;
+    margin: 9px 10px;
+}
+
+/*エラー文*/
+.error{
+    position: absolute;
+    top: -5%;
+    padding: 35px;
+    margin: 0 -25px;
+}
+
