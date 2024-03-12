@@ -8,7 +8,9 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="admin")
-public class AdmiEntity {
+public class AdminEntity {
+
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,19 +23,18 @@ public class AdmiEntity {
 	
 	
 	//空のコンストラクタ
-	public AdmiEntity() {
+	public AdminEntity() {
 		
 	}
 	
 	//コンストラクタ
-	public AdmiEntity(String adminName, String adminEmail, String adminPassword, Integer deleteFlg) {
-		super();
+	public AdminEntity(String adminName, String adminEmail, String adminPassword) {
 		this.adminName = adminName;
 		this.adminEmail = adminEmail;
 		this.adminPassword = adminPassword;
-		this.deleteFlg = deleteFlg;
 	}
-
+	
+	
 	//カプセル化　Get Set
 	public Long getAdminId() {
 		return adminId;
