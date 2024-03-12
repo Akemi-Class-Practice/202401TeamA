@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ec.com.models.AdminEntity;
+import ec.com.services.AdminServices;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -15,7 +17,7 @@ import jakarta.servlet.http.HttpSession;
 public class AdminLoginController {
 	
 	@Autowired
-	private AdminService adminService;
+	private AdminServices adminService;
 	
 	@Autowired
 	private HttpSession session;
@@ -30,7 +32,7 @@ public class AdminLoginController {
 	public String login(@RequestParam String adminName,@RequestParam String adminEmail,
 						@RequestParam String password,@RequestParam Integer deleteFlag,Model model) {
 		
-		AdminEntity admin = adminService.adminLogin(adminName,password);
+		AdminEntity admin = adminService.adminCheckLogin(adminName,password);
 		if (admin == null) {
 			return "admin_login.html";
 		}else {

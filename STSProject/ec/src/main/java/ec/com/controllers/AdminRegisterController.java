@@ -8,14 +8,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ec.com.services.AdminServices;
+
 @Controller
 @RequestMapping("/register")
 public class AdminRegisterController {
 	@Autowired
-	private AdminService adminService;
+	private AdminServices adminService;
 	
 	@GetMapping("/register")
 		public String getAdminRegisterPage(Model model) {
+		//Tymeleafで判断する
 			model.addAttribute("error",false);
 			return "/admin/register-admin.html";
 		
@@ -27,7 +30,7 @@ public class AdminRegisterController {
 
 //	AdminEntity admin = adminService.adminRegister(adminName,password);
 //	If the condition is not null then able to register else return back to register.html
-	if (adminService.createAdminAccount(adminName,adminEmail,password) == null) {
+	if (adminService.createAdmin(adminName,adminEmail,password)) {
 		return "admin_register.html";
 	}else {
 		model.addAttribute("error",true);
