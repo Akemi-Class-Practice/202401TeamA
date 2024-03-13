@@ -24,7 +24,7 @@ public class UserServices {
 	
 	//ログインチェック
 	public UserEntity userCheckLogin(String userName,String userPassword) {
-		UserEntity userEntity = userRepo.findByUserNameAndUserPssword(userName,userPassword);
+		UserEntity userEntity = userRepo.findByUserNameAndUserPassword(userName,userPassword);
 		if(userEntity == null) {
 			return null;
 		}else {
