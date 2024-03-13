@@ -19,25 +19,29 @@ public class AdminLoginController {
 	@Autowired
 	private AdminServices adminService;
 	
+	//To save userdata
 	@Autowired
 	private HttpSession session;
 	
 	@GetMapping("/login")
 	public String getAdminLoginPage(Model model) {
 		model.addAttribute("error",false);
-		return "admin/login-admin.html";
+		return "/admin/login-admin.html";
 	}
 	
+	//AdminServiceからAdmin名とパスワードをチェック
+	//Nullでしたら、AdminLogin画面に止まる
+	//そうではない、ProductRegister画面にリダイレクト
 	@PostMapping("/login")
 	public String login(@RequestParam String adminName,@RequestParam String adminEmail,
-						@RequestParam String password,@RequestParam Integer deleteFlag,Model model) {
+						@RequestParam String adminPassword,@RequestParam Integer deleteFlag,Model model) {
 		
-		AdminEntity admin = adminService.adminCheckLogin(adminName,password);
+		AdminEntity admin = adminService.adminCheckLogin(adminName,adminPassword);
 		if (admin == null) {
-			return "admin_login.html";
+			return "/admin/login-admin.html";
 		}else {
 			session.setAttribute("admin", admin);
-			return "refirect:/admin/product/register";
+			return "redirect:/admin/product/register";
 		}
 		
 	}

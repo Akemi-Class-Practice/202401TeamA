@@ -1,0 +1,179 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "poppins",sans-serif;
+    align-items: center;
+}
+
+/*Bodyの範囲*/
+body{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   /*背景*/
+    background: url(./image/userLogin.jpg) ;
+    background-size: cover;
+}
+
+/*Formの範囲あるいは外側の線*/
+.wrapper{
+    position: relative;
+    width: 420px;
+    background: transparent;
+    backdrop-filter:blur(10px) ;
+    border: 1px solid rgb(199, 195, 195);
+    box-shadow: 0 0 50px rgb(199, 195, 195);
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*animation: up-to-down 1s ease-in;*/
+    animation-duration: 3s;
+    animation-name: slidein;
+    /*animation: mover 1s infinite  alternate;上下*/
+    
+}
+
+/*H1の部分*/
+.wrapper h1{
+    font-size: 30px;
+    text-align: center;
+    font-weight: 600px;
+    color: #fff;
+}
+
+/*各Input要素の部分*/
+.input-box input{
+    border: 2px solid #fff;
+    border-radius: 20px;
+    width:100%;
+    height: 40px;
+    background-color: transparent;
+    color: #fff;
+    font-size: 16px;
+    padding: 5px 10px ;
+    margin: 3px;
+}
+
+/*箱なかの文字カラー*/
+.input-box input::placeholder{
+    color: #fff;
+}
+
+#useremail::placeholder{
+    font-size: 14px;
+    position: relative;
+    bottom: 2px;
+    text-align: center;
+}
+
+/*入力ユーザー名のアイコン*/
+#username::placeholder {
+    font-size: 14px;
+    position: relative;
+    bottom: 2px;
+    text-align: center;
+}
+
+/*入力パスワードのアイコン*/
+#userPassword::placeholder {
+    font-size: 14px;
+    position: relative;
+    bottom: 2px;
+    text-align: center;
+}
+
+/*アイコンの部分*/
+.input-box i{
+      color: #fff;
+}
+
+/*メールアドレスアのイコン位置*/
+.bxs-envelope{
+    position: absolute;
+    top: 28%;
+    margin: 0px 10px;
+}
+
+/*ユーザーのアイコン位置*/
+.bxs-user{
+    position: absolute;
+    top: 40%;
+    margin: 0px 10px;
+}
+/*パスワードのアイコン位置*/
+.bxs-lock-alt{
+    position: absolute;
+    top:52%;
+    margin: 0px 10px;
+}
+
+
+/*Rememberの部分*/
+.wrapper .remember{
+    font-size: 16px;
+    color: #fff;
+    text-align: center;
+
+}
+
+/*ボダンの部分*/
+.wrapper .btn{
+    width: 100%;
+    height: 40px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    outline: none;
+    border: none;
+    background: #fff;
+    cursor: pointer;
+    margin: 5px;
+}
+
+/*Register下の文字*/
+.register-link p {
+    color: white;
+    font-weight: 600;
+    text-align: center;
+    
+}
+
+/*Registerの部分*/
+.register-link p a:hover{
+    text-decoration: underline;
+}
+
+/*上のanimation応用*/
+/*@keyframes up-to-down{
+    0%{
+        transform: translateX(0);
+    }
+    50%{
+        transform: translateY(50%);
+        border-color: cyan;
+    }
+}*/
+
+.error-message{
+    width: 420px;
+    text-align:center;
+}
+
+/*上のanimation応用--右＞左*/
+@keyframes slidein {
+    from {
+      margin-left: 100%;
+}
+
+/*上のanimation応用--上下*/
+/*@keyframes mover {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-50px); }
+}*/
+
