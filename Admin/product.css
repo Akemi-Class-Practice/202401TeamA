@@ -1,0 +1,147 @@
+
+*{
+    padding: 0;
+    margin: 0;
+    font-family: "Google Sans", "Roboto";
+    color:white;
+    /* box-sizing: border-box; */
+    font-size: 20px;
+}
+
+body{
+    /*背景図*/
+    background-image: url(/img/adminlogin.jpg);
+    /*背景図サイズ*/
+    background-size: cover;
+
+}
+
+header{
+    padding: 80px;
+}
+
+nav{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    /*Fix the menu when scroll down*/
+    position: fixed;
+}
+
+
+/*adjust li position to corner right*/
+ul{
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+}
+
+/*adjust li position from straight to row*/
+li{
+    padding:25px;
+    margin:25px;
+}
+
+
+/*remove li underline*/
+li a{
+    text-decoration: none;
+    padding: 5px 0;
+    width: auto;
+    color:  white;
+
+}
+
+.dropdown{
+    background-color: black;
+}
+
+
+/*adjust image size*/
+img{
+    width: 100px;
+    height: 100px;
+}
+
+/*Color change after clicked*/
+a:hover{
+    color: violet;
+}
+
+#dropdown{
+    display: flex;
+    margin: 50px 30px;
+    border: 2px solid transparent;
+    /* border-radius: 20px; */
+    color: black;
+    display: flex;
+    font-size: 20px;
+}
+
+.search{
+    border-radius: 20px;
+    height: 20px;
+    padding:6px;
+    margin-top: 50px;
+}
+.bx-search{
+    position: relative;
+    right: 25px;
+    margin-top: 55px;
+    color: black;
+
+} 
+
+.product1{
+    padding: 150px 100px;
+    border: 2px solid white;
+    border-radius: 10px;
+    margin: 50px;
+}
+
+.cart{
+    padding: 100px;
+}
+
+.cart img{
+    float: right;
+    width: 15%;
+    align-items: center;
+    margin: -40px 100px;
+    /*border-radius: 50%;*/
+    border: 15px groove black;
+    width: 200px;
+    height: 200px;
+}
+
+.product2{
+    padding: 150px 100px;
+    border: 2px solid  white;
+    border-radius: 10px;
+    margin: 50px;
+}
+
+button{
+    border: 2px solid grey;
+    border-radius: 20px;
+    padding:10px 10px;
+    margin-top: 20px;
+    background-color: silver;
+}
+
+button:hover{
+    color: brown;
+    cursor: pointer;
+}
+
+.purchase{
+    font-size: 20px;
+    border: 2px solid grey;
+    border-radius: 20px;
+    padding:20px 100px;
+    background-color: silver;
+    margin: 20px 800px;
+}
+
+
