@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ec.com.services.UserService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -31,7 +32,7 @@ public class UserRegisterController {
 	//そうではない、register画面にリダイレクト
 	@PostMapping("/register")
 	public String registerUserAccount(@RequestParam String userName, @RequestParam String userPassword,@RequestParam String userEmail, Model model) {
-		if(userService.registerUserAccount(userName,userPassword,userEmail)) {
+		if(userService.createUser(userName,userPassword,userEmail)) {
 			return "user_register.html";
 		}else {
 			model.addAttribute("error",true);

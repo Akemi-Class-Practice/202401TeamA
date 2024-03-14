@@ -23,7 +23,7 @@ public class UserEntity {
 	private String userEmail;
 	private Integer deleteFlg;
 	
-	@OneToMany(mappedBy = "transaction_history", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
 	private List<TransactionHistoryEntity> transactionHistory; // 一対多の関連
 
 	//空　コンストラクタ

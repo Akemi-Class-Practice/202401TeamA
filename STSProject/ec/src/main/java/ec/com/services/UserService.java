@@ -7,7 +7,7 @@ import ec.com.models.UserEntity;
 import ec.com.repositories.UserRepository;
 
 @Service
-public class UserServices {
+public class UserService {
 
 	@Autowired
 	private UserRepository userRepo;

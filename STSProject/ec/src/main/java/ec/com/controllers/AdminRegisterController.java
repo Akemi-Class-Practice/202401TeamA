@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ec.com.services.AdminServices;
+import ec.com.services.AdminService;
 
 @Controller
 @RequestMapping("/register")
 public class AdminRegisterController {
 	@Autowired
-	private AdminServices adminService;
+	private AdminService adminService;
 	
 	@GetMapping("/register")
 		public String getAdminRegisterPage(Model model) {

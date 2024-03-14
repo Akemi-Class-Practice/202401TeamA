@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ec.com.models.UserEntity;
+import ec.com.services.UserService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -31,7 +33,7 @@ public class UserLoginController {
 	@PostMapping("/login")
 	private String login(@RequestParam String username,@RequestParam String password,Model model) {
 		
-		UserEntity user = userService.userLogin(userName,userPassword));
+		UserEntity user = userService.userCheckLogin(username,password);
 	     if (user == null) {
 	    	 return "/user_register.html";
 	     }else {

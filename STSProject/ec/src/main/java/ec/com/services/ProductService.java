@@ -3,6 +3,7 @@ package ec.com.services;
 import java.sql.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import ec.com.models.AdminEntity;
@@ -10,14 +11,14 @@ import ec.com.models.ProductEntity;
 import ec.com.repositories.ProductRepository;
 
 @Service
-public class ProductServices {
+public class ProductService {
 
 	@Autowired
 	private ProductRepository productRepo;
 	
 	//登録管理
 	public boolean productRegisterCheck(String productName,String productPrice,String productDetail,String productImage
-										,Date registerDate,AdminEntity admin ) {
+										,@DateTimeFormat(pattern = "yyyy-MM-dd-HH-mm-ss-") Date registerDate,AdminEntity admin ) {
 		if(productRepo.findByProductName(productName) == null) {
 			productRepo.save(new ProductEntity(productName,productPrice,productDetail,productImage,0,registerDate,admin));
 			return true;
@@ -35,8 +36,10 @@ public class ProductServices {
 		}
 	}
 	
-	public boolean productUpdateCheck(Long ProductId,String productName,String productPrice,String productDetail,String productImage
-			,Date registerDate,AdminEntity admin ) {
+	
+	//商品登録
+	public boolean productUpdateCheck(Long productId,String productName,String productPrice,String productDetail,String productImage
+			,@DateTimeFormat(pattern = "yyyy-MM-dd-HH-mm-ss-") Date registerDate,AdminEntity admin ) {
 		ProductEntity productEntity = productRepo.findByProductId(productId);
 		if(productEntity == null || admin.getAdminId() == null) {
 			return false;
@@ -46,10 +49,13 @@ public class ProductServices {
 			productEntity.setProductDetail(productDetail);
 			productEntity.setProductImage(productImage);
 			productEntity.setRegisterDate(registerDate);
+			
+			productRepo.save(productEntity);
 			return true;
 		}
 	}
 	
+	//削除
 	public boolean productDeleteCheck(Long productId,AdminEntity admin) {
 		ProductEntity productEntity = productRepo.findByProductId(productId);
 		if(productEntity == null || admin.getAdminId() == null) {
@@ -60,4 +66,5 @@ public class ProductServices {
 			return true;
 		}
 	}
+	
 }
