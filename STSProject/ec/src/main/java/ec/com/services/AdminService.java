@@ -7,7 +7,7 @@ import ec.com.models.AdminEntity;
 import ec.com.repositories.AdminRepository;
 
 @Service
-public class AdminServices {
+public class AdminService {
 
 	@Autowired
 	private AdminRepository adminRepo;

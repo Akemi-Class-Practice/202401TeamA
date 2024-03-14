@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ec.com.models.AdminEntity;
-import ec.com.services.AdminServices;
+import ec.com.services.AdminService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpSession;
 public class AdminLoginController {
 	
 	@Autowired
-	private AdminServices adminService;
+	private AdminService adminService;
 	
 	//To save userdata
 	@Autowired

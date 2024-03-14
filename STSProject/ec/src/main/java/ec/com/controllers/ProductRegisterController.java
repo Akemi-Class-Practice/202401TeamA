@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import ec.com.models.AdminEntity;
+import ec.com.services.ProductService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -37,15 +38,15 @@ public class ProductRegisterController {
 	//セッションからログイン指定している人の情報変数に格納Admin
 	//もし、Admin==null
 	//ログイン画面にリダイレクトする
-	@PostMapping("/register")
-	public String registerProduct(@RequestParam String productName, @RequestParam Integer productPrice,
+	@PostMapping("/register")													//Integer
+	public String registerProduct(@RequestParam String productName, @RequestParam String productPrice,
 			 @RequestParam String productDetail,@RequestParam MultipartFile productImg, Date registerDate,
 			Model model) {
 		AdminEntity admin = (AdminEntity)session.getAttribute("admin");
 		if (admin == null) {
 			return "redirect:/admin/login";
 		} else {
-			String fileName = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-").format(new Date())
+			String fileName = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-").format(registerDate)
 					+ productImg.getOriginalFilename();
 			try {
 				Files.copy(productImg.getInputStream(), Path.of("src/main/resources/static/product-img/" + fileName));
@@ -54,7 +55,7 @@ public class ProductRegisterController {
 			}
 			// もし、登録が成功したら、商品登録にリダイレクト
 			// そうでない場合は、商品ログイン画面にとどまる
-			if (productService.registerProduct(productName,productPrice,productDetail,
+			if (productService.productRegisterCheck(productName,productPrice,productDetail,
 												fileName,registerDate,admin)) {
 				return "redirect:/admin/product-register";
 			}else {

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import ec.com.models.AdminEntity;
-import ecsite.com.services.ProductService;
+import ec.com.services.ProductService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -22,6 +22,11 @@ public class ProductDeleteController {
 
 	@Autowired
 	private HttpSession session;
+	
+	@GetMapping("/register-delete")
+	public String getProductRegisterPage() {
+		return "/product-delete.html";
+	}
 
 	//もしＡｄｍｉｎがＮｕｌｌな場合、ＡｄｍｉｎＬｏｇｉｎに戻る
 	//もしＰｒｏｄｕｃｔＩＤが削除した場合、/admin/product-list/viewにもどる
@@ -32,7 +37,8 @@ public class ProductDeleteController {
 		if (admin == null) {
 			return "redirect:/admin/login";
 		} else {
-			if (productService.deleteProduct(productId, admin)) {
+								//メソッド名前が違い↓
+			if (productService.productDeleteCheck(productId, admin)) {
 				return "redirect/admin/product-list/view";
 			} else {
 				return "redirect:/admin/product/edit" + productId;
