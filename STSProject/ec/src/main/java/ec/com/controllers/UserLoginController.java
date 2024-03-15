@@ -24,7 +24,7 @@ public class UserLoginController {
 	@GetMapping("/login")
 	private String getUserLoginPage(Model model) {
 		model.addAttribute("error",false);
-		return "/user_login.html";
+		return "/user/user_login.html";
 
 }	
 	//UserServicesからUser名とUserPasswordをチェック

@@ -20,7 +20,7 @@ import ec.com.services.ProductService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/admin/product")
+@RequestMapping("/admin")
 public class ProductEditController {
 	
 	@Autowired
@@ -31,7 +31,7 @@ public class ProductEditController {
 
 	@GetMapping("/edit")
 	private String getProductEditPage() {
-		return "/product-delete.html";
+		return "/admin/product-delete.html";
 	}
 	
 	//AdminセッションでログインしてNullでしたらLogin画面に止まる

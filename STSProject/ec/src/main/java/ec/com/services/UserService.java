@@ -23,8 +23,8 @@ public class UserService {
 	}
 	
 	//ログインチェック
-	public UserEntity userCheckLogin(String userName,String userPassword) {
-		UserEntity userEntity = userRepo.findByUserNameAndUserPassword(userName,userPassword);
+	public UserEntity userCheckLogin(String username,String userPassword) {
+		UserEntity userEntity = userRepo.findByUserNameAndUserPassword(username,userPassword);
 		if(userEntity == null) {
 			return null;
 		}else {

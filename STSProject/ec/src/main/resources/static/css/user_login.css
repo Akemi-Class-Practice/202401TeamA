@@ -13,8 +13,9 @@ body{
     align-items: center;
     justify-content: center;
    /*背景*/
-    background: url(../img/userLogin.jpg) ;
+    background: url(../image/userLogin.jpg);
     background-size: cover;
+    
 }
 
 /*Formの範囲あるいは外側の線*/

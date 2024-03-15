@@ -31,17 +31,19 @@ public class AdminLoginController {
 	
 	//AdminServiceからAdmin名とパスワードをチェック
 	//Nullでしたら、AdminLogin画面に止まる
-	//そうではない、ProductRegister画面にリダイレクト
+	//そうではない、一覧画面へ
 	@PostMapping("/login")
-	public String login(@RequestParam String adminName,@RequestParam String adminEmail,
-						@RequestParam String adminPassword,@RequestParam Integer deleteFlag,Model model) {
+	public String login(@RequestParam String adminName,
+						@RequestParam String adminPassword,Model model) {
 		
 		AdminEntity admin = adminService.adminCheckLogin(adminName,adminPassword);
 		if (admin == null) {
+			model.addAttribute("error",true);
 			return "/admin/login-admin.html";
 		}else {
 			session.setAttribute("admin", admin);
-			return "redirect:/admin/product/register";
+			// TODO: redirect to 一覧画面
+			return "redirect:/admin/product/viewlist";
 		}
 		
 	}

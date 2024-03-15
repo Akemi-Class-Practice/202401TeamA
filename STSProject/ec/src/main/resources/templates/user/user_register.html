@@ -9,14 +9,15 @@
 </head>
 <body>
     <main>
-        <div class="error-message">
+		<!--加上th:if="${error}"是把以下的信息反映出來-->
+        <div class="error-message" th:if="${error}">
             <p>登録が失敗しました！</p>
         </div>
         <div class="wrapper">
-            <form action="#" method="post">
+            <form th:action="@{/user/register}" method="post">
                 <h1>新規登録</h1>
                 <div class="input-box">
-                    <input type="text" id="useremail" name="useremail" placeholder="メールアドレス" required>
+                    <input type="text" id="userEmail" name="userEmail" placeholder="メールアドレス" required>
                     <i class='bx bxs-envelope'></i>
                 </div>
                 <div class="input-box">
@@ -34,7 +35,7 @@
                     <button type="submit" class="btn">登録</button>
                 </div>
                 <div class="register-link">
-                    <p>メンバの方？<a href="#">ログイン</a></p>
+                    <p>メンバの方？<a th:href="@{/user/login}">ログイン</a></p>
                 </div>
             </form>
         </div>
