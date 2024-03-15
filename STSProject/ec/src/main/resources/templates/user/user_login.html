@@ -9,11 +9,11 @@
 </head>
 <body>
     <main>
-        <div class="error-message">
+        <div class="error-message" th:if="${error}">
             <p>ログインが失敗しました！</p>
         </div>
     <div class="wrapper">
-        <form action="#" method="post">
+        <form th=action="@{user/login}" method="post">
             <h1>ログイン</h1>
             <div class="input-box">
                 <input type="text" id="username" name="username" placeholder="ユーザー名" required>
@@ -30,7 +30,7 @@
                 <button type="submit" class="btn">ログイン</button>
             </div>
             <div class="register-link">
-                <p>アカウントがない方？<a href="#">登録</a></p>
+                <p>アカウントがない方？<a th:href="@{/user/register}">登録</a></p>
             </div>
            
         </form>

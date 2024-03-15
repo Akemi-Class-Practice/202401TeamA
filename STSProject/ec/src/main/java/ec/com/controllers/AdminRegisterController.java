@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ec.com.services.AdminService;
 
 @Controller
-@RequestMapping("/register")
+@RequestMapping("/admin")
 public class AdminRegisterController {
 	@Autowired
 	private AdminService adminService;
@@ -27,15 +27,16 @@ public class AdminRegisterController {
 	
 	@PostMapping("/register")
 	public String login(@RequestParam String adminName,@RequestParam String adminEmail,
-						@RequestParam String adminPassword,@RequestParam Integer deleteFlag,Model model) {
+						@RequestParam String adminPassword,Model model) {
 
 //	AdminEntity admin = adminService.adminRegister(adminName,password);
 //	If the condition is not null then able to register else return back to register.html
 	if (adminService.createAdmin(adminName,adminEmail,adminPassword)) {
-		return "admin_register.html";
+		//redirect 是參考想轉去別的Controller
+		return "redirect:/admin/login";
 	}else {
 		model.addAttribute("error",true);
-		return "redirect:/admin/register-admin.html";
+		return "/admin/register-admin.html";
 	}
 	
 	  }

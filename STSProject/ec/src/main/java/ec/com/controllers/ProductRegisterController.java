@@ -31,7 +31,7 @@ public class ProductRegisterController {
 
 	@GetMapping("/register")
 	public String getProductRegisterPage() {
-		return "/product-login.html";
+		return "/admin/product-login.html";
 	}
 
 	

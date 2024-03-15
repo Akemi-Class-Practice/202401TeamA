@@ -9,20 +9,20 @@
 </head>
 <body>
     <section class="login">
-        <div class="error">
+        <div class="error" th:if="${error}">
             <p>ログインが失敗しました！</p>
         </div>
-        <div class="login-screen" method="post">
+        <div class="login-screen">
             <div class="login-title">
                 <h1>管理者ログイン</h1>
             </div>
-            <form class="login-form">
+            <form class="login-form"  th:action="@{/admin/login}" method="post" >
                 <div class="control-group">
-                    <input type="text"  id="login-name" name="admin-name" placeholder="管理者番号" required>
+                    <input type="text"  id="login-name" name="adminName" placeholder="管理者番号" required>
                     <i class='bx bxs-user'></i>
                 </div>
                 <div class="control-group">
-                    <input type="password"  id="login-password" name="password" placeholder="パスワード" >
+                    <input type="password"  id="login-password" name="adminPassword" placeholder="パスワード" >
                     <i class='bx bxs-lock-alt'></i>
                 </div>
                 <div class="remember">
@@ -32,7 +32,7 @@
                     <button type="submit" class="button">ログイン</button>
                 </div>
                 <div class="register-link">
-                    <p>アカウントがない方？<a href="#">登録</a></p>
+                    <p>アカウントがない方？<a th:href="@{/admin/register}">登録</a></p>
                 </div>
             </form>
         </div>
