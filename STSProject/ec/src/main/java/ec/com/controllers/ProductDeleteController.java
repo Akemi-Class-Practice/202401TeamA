@@ -14,7 +14,7 @@ import ec.com.services.ProductService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/admin/product")
+@RequestMapping("/admin")
 public class ProductDeleteController {
 
 	@Autowired
@@ -23,9 +23,9 @@ public class ProductDeleteController {
 	@Autowired
 	private HttpSession session;
 	
-	@GetMapping("/register-delete")
+	@GetMapping("/product/delete")
 	public String getProductRegisterPage() {
-		return "/product-delete.html";
+		return "/admin/product-delete.html";
 	}
 
 	//もしＡｄｍｉｎがＮｕｌｌな場合、ＡｄｍｉｎＬｏｇｉｎに戻る

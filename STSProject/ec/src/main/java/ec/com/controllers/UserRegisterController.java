@@ -24,7 +24,7 @@ public class UserRegisterController {
 	@GetMapping("/register")
 	public String getUserRegisterPage(Model model) {
 		model.addAttribute("error",false);
-		return "/user_register.html";
+		return "/user/user_register.html";
 	}
 	
 	//もしUserEntityでUsernameとPasswordをチェック
