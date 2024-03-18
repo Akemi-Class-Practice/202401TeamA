@@ -13,7 +13,7 @@ body{
     align-items: center;
     justify-content: center;
    /*背景*/
-    background: url(../image/userLogin.jpg);
+    background: url(../image/userLogin.jpg) ;
     background-size: cover;
     
 }
