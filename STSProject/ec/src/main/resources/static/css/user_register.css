@@ -62,7 +62,7 @@ body{
     color: #fff;
 }
 
-#useremail::placeholder{
+#userEmail::placeholder{
     font-size: 14px;
     position: relative;
     bottom: 2px;
@@ -94,20 +94,20 @@ body{
 .bxs-envelope{
     position: absolute;
     top: 28%;
-    margin: 0px 10px;
+    margin: 4px 15px;
 }
 
 /*ユーザーのアイコン位置*/
 .bxs-user{
     position: absolute;
     top: 40%;
-    margin: 0px 10px;
+    margin: 10px 15px;
 }
 /*パスワードのアイコン位置*/
 .bxs-lock-alt{
     position: absolute;
     top:52%;
-    margin: 0px 10px;
+    margin: 14px 15px;
 }
 
 
