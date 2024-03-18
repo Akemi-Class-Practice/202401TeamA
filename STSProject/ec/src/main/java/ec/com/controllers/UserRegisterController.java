@@ -28,15 +28,17 @@ public class UserRegisterController {
 	}
 	
 	//もしUserEntityでUsernameとPasswordをチェック
-	//Nullでしたら、UserRegister画面に進む
-	//そうではない、register画面にリダイレクト
+	//Nullでしたら、userlogin画面へ
+	//そうではない、userRegister画面に止まる
 	@PostMapping("/register")
-	public String registerUserAccount(@RequestParam String userName, @RequestParam String userPassword,@RequestParam String userEmail, Model model) {
-		if(userService.createUser(userName,userPassword,userEmail)) {
-			return "user_register.html";
+	public String registerUserAccount(@RequestParam String username, @RequestParam String userPassword,@RequestParam String userEmail, Model model) {
+		if(userService.createUser(username,userPassword,userEmail)) {
+			//Domain
+			return "redirect:/user/login";
 		}else {
 			model.addAttribute("error",true);
-			return "redirect:/user_register.html";
+			//文件需要Html
+			return "/user/user_register.html";
 		}
 	}
 }

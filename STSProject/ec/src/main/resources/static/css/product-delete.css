@@ -32,7 +32,7 @@ body{
     /*上下の距離*/
     padding-top: 200px;
     /*背景図*/
-    background-image: url(/img/adminlogin.jpg);
+    background-image: url(../img/adminlogin.jpg);
     /*背景図サイズ*/
     background-size: cover;
 }

@@ -10,7 +10,7 @@
 
 body{
     /*背景図*/
-    background-image: url(/img/adminlogin.jpg);
+    background-image: url(../img/adminlogin.jpg);
     /*背景図サイズ*/
     background-size: cover;
 
