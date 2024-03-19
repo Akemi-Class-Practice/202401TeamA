@@ -83,4 +83,13 @@ public class ProductService {
 			return productRepo.findByDeleteFlg(0);
 		}
 	
+	//ユーザーの商品詳細
+	public ProductEntity userProductDetail(Long productId) {
+		if(productId == null) {
+			return null;
+		}else {
+			return productRepo.findByProductId(productId);
+		}
+	}
+	
 }
