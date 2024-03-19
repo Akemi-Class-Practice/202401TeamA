@@ -12,10 +12,10 @@
 <body>
     <header>
         <nav>
-            <img src="./image/logo.png" alt="">
+            <img th:src="@{/image/logo.png}" alt="">
             <ul>
                 <select name="" id="dropdown">
-                    <li><a href="" target _blank>
+                    <li><a th:href="@{/user/product/viewlist}" target _blank>
                             <option value="product">商品一覧</option>
                         </a></li>
                     <a href="" target _blank>
@@ -28,7 +28,7 @@
                         <option value="tablet">タブレット</option>
                     </a>
                 </select>
-                <li><a href="" target _blank>問い合わせ</a></li>
+                <li><a th:href="@{}" target _blank>問い合わせ</a></li>
                 <li><a href="" target _blank>カート</a></li>
                 <li><a href="" target _blank>ログアウト</a></li>
                 <input type="text" class="search"><i class='bx bx-search'></i>
@@ -38,13 +38,16 @@
     </header>
     <section class="cart">
         <div class="product1" th:each="cart:${cartList}">
-            <img th:src="'/product-img'+${cart.productImage}" alt="">
+            <img th:src="'/product-img/'+${cart.productImage}" alt="">
             <p th:text="'注文ID：'+${cart.productId}"></p>
             <p th:text="'日付：'+${today}"></p>
+            <p th:text="'商品名：'+${cart.productName}"></p>
             <p th:text="'購入者：'+${user.userName}"></p>
-            <p th:text="'メール：'+${user.userEmail}"></p>
             <p th:text="'金額：'+${cart.productPrice}"></p>
+            <form th:action="@{/user/cart/delete-product}" method="post">
+				<input type="hidden" name="productId" th:value="${cart.productId}">
             <button>カートから削除</button>
+            </form>
         </div>
 
         
