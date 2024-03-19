@@ -77,10 +77,13 @@ public class ProductService {
 		}
 	}
 	
-	//ユーザー
+	//ユーザー 一覧表示
 	public List<ProductEntity> userProductList(){
 		//ユーザー用の商品一覧
 			return productRepo.findByDeleteFlg(0);
 		}
+
+	
+	
 	
 }
