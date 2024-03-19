@@ -43,7 +43,7 @@ public class AdminLoginController {
 		}else {
 			session.setAttribute("admin", admin);
 			// TODO: redirect to 一覧画面
-			return "redirect:/admin/product/viewlist";
+			return "redirect:/admin/product/listview";
 		}
 		
 	}

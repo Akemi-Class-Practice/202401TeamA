@@ -31,9 +31,9 @@ public class UserLoginController {
 	//Nullでしたら、UserRegister画面に戻る
 	//そうじゃない場合、UserLogin画面に止まる
 	@PostMapping("/login")
-	private String login(@RequestParam String username,@RequestParam String password,Model model) {
+	private String login(@RequestParam String username,@RequestParam String userPassword,Model model) {
 		
-		UserEntity user = userService.userCheckLogin(username,password);
+		UserEntity user = userService.userCheckLogin(username,userPassword);
 	     if (user == null) {
 	    	 return "/user_register.html";
 	     }else {
