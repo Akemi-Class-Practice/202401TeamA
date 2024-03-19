@@ -23,16 +23,21 @@ public class UserProductDetailController {
 	@Autowired
 	private HttpSession session;
 	
-	@GetMapping("/user/product/detail/{productId}")
-	//@PathVariable Long userId,
+	@GetMapping("/detail/{productId}")
 	private String getUserProductDetailpage(@PathVariable Long productId,Model model ) {
 		UserEntity user = (UserEntity)session.getAttribute("user");
 		if(user == null) {
-			return "redirect:/user/login";
+			return login("/user/product/detail/"+productId);
 		}else {
 			ProductEntity product = productService.userProductDetail(productId);
 			model.addAttribute("product",product);
 			return "/user/UserProductDetail.html";
 		}
+	}
+	
+	//Loginページに飛ばすメソッド
+	public String login(String url) {
+		session.setAttribute("backLoginpage",url);
+		return "redirect:/user/login"; 
 	}
 }

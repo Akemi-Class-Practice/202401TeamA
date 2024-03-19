@@ -38,7 +38,13 @@ public class UserLoginController {
 	    	 return "/user/user_register.html";
 	     }else {
 	    	 session.setAttribute("user",user);
-	    	 return "redirect:/user/product/viewlist";
+	    	 String url = (String) session.getAttribute("backLoginpage");
+	    	 if(url == null) {
+	    		 return "redirect:/user/product/viewlist";
+	    	 }else {
+	    		 return"redirect:"+url;
+	    	 }
+	    	 
 	     }
 	}
 }
