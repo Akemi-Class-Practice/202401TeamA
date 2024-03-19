@@ -37,25 +37,17 @@
         </nav>
     </header>
     <section class="cart">
-        <div class="product1">
-            <img src="./image/pic1.jpg" alt="">
-            <p>注文ID：</p>
-            <p>日付：</p>
-            <p>購入者：</p>
-            <p>住所：大阪府</p>
-            <p>金額：</p>
+        <div class="product1" th:each="cart:${cartList}">
+            <img th:src="'/product-img'+${cart.productImage}" alt="">
+            <p th:text="'注文ID：'+${cart.productId}"></p>
+            <p th:text="'日付：'+${today}"></p>
+            <p th:text="'購入者：'+${user.userName}"></p>
+            <p th:text="'メール：'+${user.userEmail}"></p>
+            <p th:text="'金額：'+${cart.productPrice}"></p>
             <button>カートから削除</button>
         </div>
 
-        <div class="product2">
-            <img src="./image/pic3.jpg" alt="">
-            <p>注文ID：</p>
-            <p>日付：</p>
-            <p>購入者：</p>
-            <p>住所：大阪府</p>
-            <p>金額：</p>
-            <button>カートから削除</button>
-        </div>
+        
 
     </section>
 
