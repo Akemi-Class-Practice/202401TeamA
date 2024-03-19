@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" th:href="@{/css/userproductpurchaseviewlist.css}">
+    <title>UserProductDetail</title>
+</head>
+<body>
+    
+        <header>
+            <nav>
+                <img src="./image/logo.png" alt="">
+                
+                <ul> 
+                        <select name="" id="dropdown">
+                        <li><a href=""><option value="">商品一覧</option></a></li>
+                            <option value="pc">パソコン</option>
+                            <option value="smartphone">スマートフォン</option>
+                            <option value="tablet">タブレット</option>
+                        </select>
+                        <li><a href="" target _blank>問い合わせ</a></li>
+                        <li><a href="" target _blank>購入履歴</a></li>
+                        <li><a href="" target _blank>ログアウト</a></li>
+                        <input type="text" class="search"><i class='bx bx-search'></i>
+                </ul>
+            </nav>
+        </header>       
+            <div class="product-list">
+				<form method="post" th:action="@{/user/cart/add-product}">
+                <img alt="" th:src="'/product-img/'+${product.productImage}">
+                <p th:text="'商品名前:'+${product.productName}"></p>
+                <p th:text="'商品値段:'+${product.productPrice}"></p>
+                <input type="hidden" name="productId" th:value="${product.productId}">
+                <button>カートに追加</button>
+                </form>
+            </div>        
+</body>
+</html>
