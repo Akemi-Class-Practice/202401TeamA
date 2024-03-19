@@ -39,9 +39,9 @@ public class ProductDeleteController {
 		} else {
 								//メソッド名前が違い↓
 			if (productService.productDeleteCheck(productId, admin)) {
-				return "redirect/admin/product-list/view";
+				return "redirect:/admin/product/listview";
 			} else {
-				return "redirect:/admin/product/edit" + productId;
+				return "redirect:/admin/edit" + productId;
 			}
 		}
 	}
