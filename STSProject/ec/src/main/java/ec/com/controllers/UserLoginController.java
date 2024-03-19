@@ -38,7 +38,7 @@ public class UserLoginController {
 	    	 return "/user/user_register.html";
 	     }else {
 	    	 session.setAttribute("user",user);
-	    	 return "redirect:/user/register";
+	    	 return "redirect:/user/product/viewlist";
 	     }
 	}
 }

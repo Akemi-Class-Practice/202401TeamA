@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <link rel="stylesheet" href="homepage.css">
+    <link rel="stylesheet" th:href="@{/css/homepage.css}">
     <title>homepage</title>
 </head>
 <body>
     <header>
         <nav>
-            <img src="./image/logo.png" alt="">
+            <img th:src="@{/image/logo.png}" alt="">
             
             <ul> 
                     <select name="" id="dropdown">
@@ -20,10 +20,10 @@
                         <option value="smartphone">スマートフォン</option>
                         <option value="tablet">タブレット</option>
                     </select>
-                    <li><a href="" target="_blank">問い合わせ</a></li>
-                    <li><a href="" target="_blank">購入履歴</a></li>
-                    <li><a href="" target="_blank">ログアウト</a></li>
-                    <li class="user-register btn" target="_blank">登録</li>
+                    <li><a href="#" target="_blank">問い合わせ</a></li>
+                    <li><a href="#" target="_blank">購入履歴</a></li>
+                    <li><a th:href="@{/user/login}" target="_blank">ログアウト</a></li>
+                    <li class="user-register btn" target="_blank"><a th:href="@{/user/register}">登録</a></li>
                     <input type="text" class="search"><i class='bx bx-search'></i>
             </ul>
         
@@ -32,91 +32,35 @@
 
     <main>
         <div id="video">
-            <video src="./image/video1.mp4" autoplay muted loop>PC video</video>
+            <video th:src="@{/image/video1.mp4}" autoplay muted loop>PC video</video>
         </div>
 
         <section class="popular-products">
             <h2>人気商品</h2>
             <ul>
-                <li><img src="./image/pic1.jpg" alt=""></li>
-                <li><img src="./image/pic2.jpg" alt=""></li>
-                <li><img src="./image/pic3.jpg" alt=""></li>
-                <li><img src="./image/smartphone1.webp" alt=""></li>
-                <li><img src="./image/smartphone2.webp" alt=""></li>
-                <li><img src="./image/smartphone3.webp" alt=""></li>
-                <li><img src="./image/tablet1.avif" alt=""></li>
-                <li><img src="./image/tabletpic2.jpeg" alt=""></li>
-                <li><img src="./image/tablet3.jpeg" alt=""></li>
+                <li><img th:src="@{/image/pic1.jpg}" alt=""></li>
+                <li><img th:src="@{/image/pic2.jpg}" alt=""></li>
+                <li><img th:src="@{/image/pic3.jpg}" alt=""></li>
+                <li><img th:src="@{/image/smartphone1.webp}" alt=""></li>
+                <li><img th:src="@{/image/smartphone2.webp}" alt=""></li>
+                <li><img th:src="@{/image/smartphone3.webp}" alt=""></li>
+                <li><img th:src="@{/image/tablet1.avif}" alt=""></li>
+                <li><img th:src="@{/image/tabletpic2.jpeg}" alt=""></li>
+                <li><img th:src="@{/image/tablet3.jpeg}" alt=""></li>
             </ul>
         </section>
 
         
         <section class="products-article">
             <h4>生活の中にその便利さがある</h4>
-            <div class="product">
-                <a href=""><img src="image/pc1detail.jpg" alt="" target="_blank"></a>
-                <h3>PC記事</h3>
-                <p>ゲームが大好きで、パソコンの速さと音の品質が求めるのお客はこちらをご覧ください。</p>
-                <p>XXX円</p>
+            <div class="product" th:each="product:${userProductList}">
+                <a th:href="'/user/product/detail/'+${product.productId}"><img th:src="'/product-img/'+${product.productImage}" alt="" target="_blank"></a>
+                <h3 th:text="${product.productName}"></h3>
+                <p th:text="${product.productDetail}"></p>
+                <p th:text="${product.productPrice}+'円'"></p>
             </div>
 
-            <div class="product">
-                <a href=""><img src="image/pc2detail.jpeg" alt="" target="_blank"></a>
-                <h3>PC記事</h3>
-                <p>ゲームが大好きで、パソコンの速さと音の品質が求めるのお客はこちらをご覧ください。</p>
-                <p>XXX円</p>
-            </div>
-
-            <div class="product">
-                <a href=""><img src="image/pc3detail.jpg" alt="" target="_blank"></a>
-                <h3>PC記事</h3>
-                <p>ゲームが大好きで、パソコンの速さと音の品質が求めるのお客はこちらをご覧ください。</p>
-                <p>XXX円</p>
-            </div>
-
-
-           <div class="product">
-            <a href=""><img src="./image/sp1detail.jpeg" alt="" target="_blank"></a>
-            <h3>スマートフォン記事</h3>
-            <p>ゲームが大好きで、パソコンの速さと音の品質が求めるのお客はこちらをご覧ください。</p>
-            <p>XXX円</p>
-        </div>
-
-        <div class="product">
-            <a href=""><img src="./image/sp2detail.jpg" alt="" target="_blank"></a>
-            <h3>スマートフォン記事</h3>
-            <p>ゲームが大好きで、パソコンの速さと音の品質が求めるのお客はこちらをご覧ください。</p>
-            <p>XXX円</p>
-        </div>
-
-        <div class="product">
-            <a href=""><img src="./image/sp3detail.webp" alt="" target="_blank"></a>
-            <h3>スマートフォン記事</h3>
-            <p>ゲームが大好きで、パソコンの速さと音の品質が求めるのお客はこちらをご覧ください。</p>
-            <p>XXX円</p>
-        </div>
-
-        <div class="product">
-            <a href=""><img src="./image/tablet1.avif" alt="" target="_blank"></a>
-            <h3>タブレット記事</h3>
-            <p>ゲームが大好きで、パソコンの速さと音の品質が求めるのお客はこちらをご覧ください。</p>
-            <p>XXX円</p>
-        </div>
-
-        <div class="product">
-            <a href=""><img src="./image/tablet2.jpeg" alt="" target="_blank"></a>
-            <h3>タブレット記事</h3>
-            <p>ゲームが大好きで、パソコンの速さと音の品質が求めるのお客はこちらをご覧ください。</p>
-            <p>XXX円</p>
-        </div>
-
-        <div class="product">
-            <a href=""><img src="./image/tablepic3.avif" alt="" target="_blank"></a>
-            <h3>タブレット記事</h3>
-            <p>ゲームが大好きで、パソコンの速さと音の品質が求めるのお客はこちらをご覧ください。</p>
-            <p>XXX円</p>
-        </div>
-        
+                   
 
         <footer>
             <div class="google-map">
