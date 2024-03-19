@@ -2,6 +2,7 @@ package ec.com.controllers;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,4 +64,22 @@ public class CartController {
 		model.addAttribute("today",today);
 		return "/user/usershoppingcart.html";
 	}
+	
+	//カートの中身を削除
+	@PostMapping("cart/delete-product")
+	public String deleteProductCart(@RequestParam Long productId) {
+		//Sessionからカートの情報を取得する
+		List<ProductEntity> cartList= (List<ProductEntity>) session.getAttribute("cart");
+		//for文を使ってカートの中身を1つずつ確認する
+		//もし、セッション（カートの中）に入っているproductIdが、@RequestParamで受け取ったproductIdと等しい
+		//場合はリストの中から商品の情報を削除する
+		for(int i = 0; i<cartList.size(); i++) {
+			if(cartList.get(i).getProductId().equals(productId)) {
+				cartList.remove(i);
+				break;
+			}
+		}
+		return "redirect:/user/shopping-cart";
+	}
+	
 }
