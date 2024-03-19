@@ -37,18 +37,20 @@
         </nav>
     </header>
     <section class="cart">
-        <div class="product1">
-            <img src="" alt="">
-            <p>商品ID:</p>
-            <p>商品名前:</p>
-            <p>商品値段:</p>
-            <p>商品詳細:</p>
-            <p>商品登録日:</p>
+        <div class="product1" th:each="product:${productList}">
+			<a th:href="'/admin/edit/'+${product.productId}">
+            	<img th:src="'/product-img/'+${product.productImage}" alt="">
+            	<!--<p>商品ID:</p>-->
+           	 	<p th:text="'商品名前:'+${product.productName}"></p>
+            	<p th:text="'商品値段:'+${product.productPrice}"></p>
+            	<p th:text="'商品詳細:'+${product.productDetail}"></p>
+            	<p th:text="'商品登録日:'+${product.registerDate}"></p>
+			</a>
         </div>
     </section>
 
     <div>
-        <button class="purchase">商品登録画面へ</button>
+        <button class="purchase" onclick="location.href='/admin/product/register'">商品登録画面へ</button>
     </div>
 
 </body>

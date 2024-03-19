@@ -57,7 +57,8 @@ public class ProductRegisterController {
 			// そうでない場合は、商品ログイン画面にとどまる
 			if (productService.productRegisterCheck(productName,productPrice,productDetail,
 												fileName,registerDate,admin)) {
-				return "redirect:/admin/product-register";
+				//商品登録画面した後　商品一覧画面を戻る
+				return "redirect:/admin/product/listview";
 			}else {
 				return "/admin/product-login.html";
 			}

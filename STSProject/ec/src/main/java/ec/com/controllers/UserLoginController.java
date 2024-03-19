@@ -35,10 +35,10 @@ public class UserLoginController {
 		
 		UserEntity user = userService.userCheckLogin(username,password);
 	     if (user == null) {
-	    	 return "/user_register.html";
+	    	 return "/user/user_register.html";
 	     }else {
 	    	 session.setAttribute("user",user);
-	    	 return "redirect:/user_login.html";
+	    	 return "redirect:/user/register";
 	     }
 	}
 }

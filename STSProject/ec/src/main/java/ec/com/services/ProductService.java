@@ -1,6 +1,7 @@
 package ec.com.services;
 
 import java.sql.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -66,5 +67,20 @@ public class ProductService {
 			return true;
 		}
 	}
+	
+	//管理者　一覧表示
+	public List<ProductEntity> productList(Long adminId){
+		if(adminId == null) {
+			return null;
+		}else {
+			return productRepo.findByDeleteFlg(0);
+		}
+	}
+	
+	//ユーザー
+	public List<ProductEntity> userProductList(){
+		//ユーザー用の商品一覧
+			return productRepo.findByDeleteFlg(0);
+		}
 	
 }

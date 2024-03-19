@@ -22,43 +22,44 @@
         </nav>
     </header>
     <main>
-        <form action="#">
+        <form th:action="@{/admin/edit}" method="post" enctype="multipart/form-data">
             <section class="product-login">
                 <h2>商品の削除・編集画面</h2>
                 <div class="list">
                     <div class="title-1">
                         <div class="label">商品ID</div>
-                        <div><input type="text"></div>
+                        <div><input type="text" name="productId" th:value="${product.productId}"></div>
                     </div>
                     <div class="title-1">
                         <div class="label">商品名前</div>
-                        <div><input type="text"></div>
+                        <div><input type="text" name="productName" th:value="${product.productName}"></div>
                     </div>
                     <div class="title-1">
                         <div class="label">商品値段</div>
-                        <div><input type="text"></div>
+                        <div><input type="text" name="productPrice" th:value="${product.productPrice}"></div>
                     </div>
                     <div class="title-1">
                         <div class="label">商品画像</div>
-                        <div><input type="file"></div>
+                        <div><input type="file" name="productImg"></div>
                     </div>
                     <div class="title-1">
                         <div class="label">商品詳細</div>
-                        <div><textarea name="" id="" cols="32" rows="10"></textarea></div>
+                        <div><textarea name="productDetail" id="" cols="32" rows="10" th:text="${product.productDetail}"></textarea></div>
                     </div>
                     <div class="title-1">
                         <div class="label">商品登録日</div>
-                        <div><input type="datetime-local"></div>
+                        <div><input type="date" name="registerDate" th:value="${product.registerDate}"></div>
                     </div>
                 </div>
             </section>
             <div class="button">
                 <input class="toroku" type="submit" value="編集">
-                <input class="toroku" type="submit" value="キャンセル">
+                <input class="toroku" type="button" onclick="history.back();" value="キャンセル">
             </div>
         </form>
-        <form action="#">
+        <form th:action="@{/admin/product/delete}" method="post">
             <div class="button">
+				<input type="hidden" name="productId" th:value="${product.productId}">
                 <input class="delete" type="submit" value="削除">
             </div>
         </form>

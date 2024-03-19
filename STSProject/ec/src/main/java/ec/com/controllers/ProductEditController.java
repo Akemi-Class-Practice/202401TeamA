@@ -10,12 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import ec.com.models.AdminEntity;
+import ec.com.models.ProductEntity;
 import ec.com.services.ProductService;
 import jakarta.servlet.http.HttpSession;
 
@@ -29,9 +31,18 @@ public class ProductEditController {
 	@Autowired
 	private HttpSession session;
 
-	@GetMapping("/edit")
-	private String getProductEditPage() {
-		return "/admin/product-delete.html";
+	@GetMapping("/edit/{productId}")
+										//URL中のデータを所得すること
+	private String getProductEditPage(@PathVariable Long productId,Model model) {
+		AdminEntity admin=(AdminEntity)session.getAttribute("admin");
+		if(admin == null) {
+			return "redirect:/login-admin"; 
+		}else {
+			ProductEntity product = productService.editPageCheck(admin.getAdminId(),productId);
+			model.addAttribute("product",product);
+			return "/admin/product-delete.html";
+		}
+		
 	}
 	
 	//AdminセッションでログインしてNullでしたらLogin画面に止まる
@@ -57,7 +68,7 @@ public class ProductEditController {
 			//そうではない、商品ログイン画面に止まる
 			if(productService.productUpdateCheck(productId,productName,productPrice,productDetail,
 											fileName,registerDate,admin)) {
-				return "redirect:/admin/product-delete";
+				return "redirect:/admin/product/listview";
 			}else {
 				return "/admin/product-login.html";
 			}
