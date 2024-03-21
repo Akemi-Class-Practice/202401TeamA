@@ -2,61 +2,63 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/userpaymentconfirm.css}">
-    <title>userpaymentconfirm</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" th:href="@{/css/userpaymentconfirm.css}">
+	<title>userpaymentconfirm</title>
 </head>
 
 <body>
-    <header>
-        <nav>
-            <img th:src="@{/image/logo.png}" alt="">
-            <ul>
-                <select name="" id="dropdown">
-                    <li><a th:href="@{/user/product/viewlist}" target _blank>
-                            <option value="product">商品一覧</option>
-                        </a></li>
-                    <a th:href="@{/user/product/viewlist}" target _blank>
-                        <option value="pc">パソコン</option>
-                    </a>
-                    <a th:href="@{/user/product/viewlist}" target _blank>
-                        <option value="smartphone">スマートフォン</option>
-                    </a>
-                    <a th:href="@{/user/product/viewlist}" target _blank>
-                        <option value="tablet">タブレット</option>
-                    </a>
-                </select>
-                <li><a href="" target _blank>問い合わせ</a></li>
-                <li><a th:href="@{/user/shopping-cart}" target _blank>カート</a></li>
-                <li><a th:href="@{/user/login}" target _blank>ログアウト</a></li>
-                <input type="text" class="search"><i class='bx bx-search'></i>
-            </ul>
-        </nav>
-    </header>
-    <div>
-        <h1>支払い情報を確認してください</h1>
-    </div>
-    <form th:action="@{/user/payment/confirmation}" method="post">
-        <div class="product">
-            <img src="./image/pic2.jpg" alt="">
-            <p>20,0000万円</p>
-        </div>
-        <div class="payment-confirmation">
-            <!--input-->
-            <input type="text" name="creditCardNumber" placeholder="クレジットカード番号" required>
-            <input type="text" name="creditCardName" placeholder="クレジットカード名前" required>
-        </div>
-        <div class="card-details">
-            <input type="text" name="expiryDate" placeholder="有効期間" required>
-        </div>
-        <div class="card-secretnumber">
-            <input type="text" name="cvvNumber" placeholder="CVV" required>
-        </div>
-        <div>
-            <button class="submit">支払い</button>
-        </div>
-    </form>
+	<header>
+		<nav>
+			<img th:src="@{/image/logo.png}" alt="">
+			<ul>
+				<select name="" id="dropdown">
+					<li><a th:href="@{/user/product/viewlist}" target _blank>
+							<option value="product">商品一覧</option>
+						</a></li>
+					<a th:href="@{/user/product/viewlist}" target _blank>
+						<option value="pc">パソコン</option>
+					</a>
+					<a th:href="@{/user/product/viewlist}" target _blank>
+						<option value="smartphone">スマートフォン</option>
+					</a>
+					<a th:href="@{/user/product/viewlist}" target _blank>
+						<option value="tablet">タブレット</option>
+					</a>
+				</select>
+				<li><a href="" target _blank>問い合わせ</a></li>
+				<li><a th:href="@{/user/shopping-cart}" target _blank>カート</a></li>
+				<li><a th:href="@{/user/login}" target _blank>ログアウト</a></li>
+				<input type="text" class="search"><i class='bx bx-search'></i>
+			</ul>
+		</nav>
+	</header>
+	<div>
+		<h1>支払い情報を確認してください</h1>
+	</div>
+	<form th:action="@{/user/payment/proceed}" method="post">
+		<div class="product">
+			<img src="./image/pic2.jpg" alt="">
+			<p>20,0000万円</p>
+		</div>
+		<div class="payment-confirmation">
+			<!--input-->
+			<input type="text" name="creditCardNumber" placeholder="クレジットカード番号" required>
+			<input type="text" name="creditCardName" placeholder="クレジットカード名前" required>
+		</div>
+		<div class="card-details">
+			<input type="text" name="expiryDate" placeholder="有効期間" required>
+		</div>
+		<div class="card-secretnumber">
+			<input type="text" name="cvvNumber" placeholder="CVV" required>
+		</div>
+		<div>
+			
+				<button class="submit">支払い</button>
+			
+		</div>
+	</form>
 </body>
 
 </html>

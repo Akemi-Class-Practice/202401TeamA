@@ -47,7 +47,7 @@ public class CartController {
 			//商品の情報を取得する
 			ProductEntity product = productService.userProductDetail(productId);
 			cartList.add(product);
-			return "redirect:/user/shopping-cart";
+			return "redirect:/user/payment/confirmation";
 		}
 	}
 	//カート一覧
