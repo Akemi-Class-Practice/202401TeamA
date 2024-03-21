@@ -20,11 +20,11 @@ public class UserPaymentController {
 	private HttpSession session;
 	
 	//お支払い画面
-	@PostMapping("/payment/confirmation")
-	public String paymentPege(@RequestParam Long userId) {
-		if() {
-			
-		}
-	}
+//	@PostMapping("/payment/confirmation")
+//	public String paymentPege(@RequestParam Long userId) {
+//		if() {
+//			
+//		}
+//	}
 
 }
