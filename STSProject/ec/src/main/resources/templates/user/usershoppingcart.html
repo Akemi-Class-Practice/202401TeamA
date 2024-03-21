@@ -2,63 +2,65 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" th:href="@{/css/cart.css}">
-    <title>usershoppingcart</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+	<link rel="stylesheet" th:href="@{/css/cart.css}">
+	<title>usershoppingcart</title>
 </head>
 
 <body>
-    <header>
-        <nav>
-            <img th:src="@{/image/logo.png}" alt="">
-            <ul>
-                <select name="" id="dropdown">
-                    <li><a th:href="@{/user/product/viewlist}" target _blank>
-                            <option value="product">商品一覧</option>
-                        </a></li>
-                    <a th:href="@{/user/product/viewlist}" target _blank>
-                        <option value="pc">パソコン</option>
-                    </a>
-                    <a th:href="@{/user/product/viewlist}" target _blank>
-                        <option value="smartphone">スマートフォン</option>
-                    </a>
-                    <a th:href="@{/user/product/viewlist}" target _blank>
-                        <option value="tablet">タブレット</option>
-                    </a>
-                </select>
+	<header>
+		<nav>
+			<img th:src="@{/image/logo.png}" alt="">
+			<ul>
+				<select name="" id="dropdown">
+					<li><a th:href="@{/user/product/viewlist}" target _blank>
+							<option value="product">商品一覧</option>
+						</a></li>
+					<a th:href="@{/user/product/viewlist}" target _blank>
+						<option value="pc">パソコン</option>
+					</a>
+					<a th:href="@{/user/product/viewlist}" target _blank>
+						<option value="smartphone">スマートフォン</option>
+					</a>
+					<a th:href="@{/user/product/viewlist}" target _blank>
+						<option value="tablet">タブレット</option>
+					</a>
+				</select>
 
-                <li><a href="" target _blank>問い合わせ</a></li>
-                <li><a th:href="@{/user/shopping-cart}" target _blank>カート</a></li>
-                <li><a th:href="@{/user/login}" target _blank>ログアウト</a></li>
+				<li><a href="" target _blank>問い合わせ</a></li>
+				<li><a th:href="@{/user/shopping-cart}" target _blank>カート</a></li>
+				<li><a th:href="@{/user/login}" target _blank>ログアウト</a></li>
 
-                <input type="text" class="search"><i class='bx bx-search'></i>
-            </ul>
+				<input type="text" class="search"><i class='bx bx-search'></i>
+			</ul>
 
-        </nav>
-    </header>
-    <section class="cart">
-        <div class="product1" th:each="cart:${cartList}">
-            <img th:src="'/product-img/'+${cart.productImage}" alt="">
-            <p th:text="'注文ID：'+${cart.productId}"></p>
-            <p th:text="'日付：'+${today}"></p>
-            <p th:text="'商品名：'+${cart.productName}"></p>
-            <p th:text="'購入者：'+${user.userName}"></p>
-            <p th:text="'金額：'+${cart.productPrice}"></p>
-            <form th:action="@{/user/cart/delete-product}" method="post">
+		</nav>
+	</header>
+	<section class="cart">
+		<div class="product1" th:each="cart:${cartList}">
+			<img th:src="'/product-img/'+${cart.productImage}" alt="">
+			<p th:text="'注文ID：'+${cart.productId}"></p>
+			<p th:text="'日付：'+${today}"></p>
+			<p th:text="'商品名：'+${cart.productName}"></p>
+			<p th:text="'購入者：'+${user.userName}"></p>
+			<p th:text="'金額：'+${cart.productPrice}"></p>
+			<form th:action="@{/user/cart/delete-product}" method="post">
 				<input type="hidden" name="productId" th:value="${cart.productId}">
-            <button>カートから削除</button>
-            </form>
-        </div>
+				<button>カートから削除</button>
+			</form>
+		</div>
 
-        
 
-    </section>
 
-    <div>
-        <button class="purchase">購入</button>
-    </div>
+	</section>
+
+	<div>
+		<form th:action="@{/user/payment/confirmation}" method="get">
+			<button class="purchase" type="submit">購入</button>
+		</form>
+	</div>
 
 </body>
 
