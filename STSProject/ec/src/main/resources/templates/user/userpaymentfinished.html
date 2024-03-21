@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="userpaymentfinished.css">
+    <link rel="stylesheet" th:href="@{/css/userpaymentfinished.css}">
     <title>Document</title>
 </head>
 
 <body>
     <header>
         <nav>
-            <img src="./image/logo.png" alt="">
+            <img th:src="@{/image/logo.png}" alt="">
             <ul>
                 <select name="" id="dropdown">
                     <li><a th:href="@{/user/product/viewlist}">
@@ -38,7 +38,7 @@
         <h2>購入した商品</h2>
     </div>
     <div class="img">
-        <img src="./image/pic2.jpg" alt="">
+        <img th:src="@{/image/pic2.jpg}" alt="">
         <p>20,0000万円</p>
     </div>
     <div class="option">
