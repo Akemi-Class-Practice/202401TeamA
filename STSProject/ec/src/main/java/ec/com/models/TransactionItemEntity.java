@@ -11,7 +11,7 @@ public class TransactionItemEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	
-	private Long prderId;
+	private Long orderId;
 	
 	private Long productId;
 	
@@ -23,20 +23,20 @@ public class TransactionItemEntity {
 		
 	}
 
-	public TransactionItemEntity(Long prderId, Long productId, Long historyId) {
-		this.prderId = prderId;
+	public TransactionItemEntity(Long orderId, Long productId, Long historyId) {
+		this.orderId = orderId;
 		this.productId = productId;
 		this.historyId = historyId;
 	}
 
 	
 	//カプセル化　ゲッターとセッター
-	public Long getPrderId() {
-		return prderId;
+	public Long getOrderId() {
+		return orderId;
 	}
 
 	public void setPrderId(Long prderId) {
-		this.prderId = prderId;
+		this.orderId = prderId;
 	}
 
 	public Long getProductId() {

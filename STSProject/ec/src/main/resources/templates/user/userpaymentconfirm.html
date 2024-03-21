@@ -39,7 +39,7 @@
     </div>
     <form th:action="@{/user/payment/confirmation}" method="post">
         <div class="product">
-            <img src="./image/pic2.jpg" alt="">
+            <img th:src="@{/image/pic2.jpg}" alt="">
             <p>20,0000万円</p>
         </div>
         <div class="payment-confirmation">
