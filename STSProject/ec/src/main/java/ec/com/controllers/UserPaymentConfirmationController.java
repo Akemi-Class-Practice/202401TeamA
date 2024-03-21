@@ -43,9 +43,12 @@ public class UserPaymentConfirmationController{
 		UserEntity user = (UserEntity) session.getAttribute("user");
 		//測試Cart是否為0，1
 		//0的話付款失敗，1的話付款成功
-		if (cart == null) {
+		if (cart == null) {			
 			return "redirect:/user/payment/confirmation";
 		}else {
+			//ここでソースコード
+			//Serviceを使用して
+			//把history和所有的item的对象都存入数据库
 			return "redirect:/user/payment/succeed";
 		}
 	}
