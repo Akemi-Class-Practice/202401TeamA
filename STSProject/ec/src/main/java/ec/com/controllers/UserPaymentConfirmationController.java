@@ -16,6 +16,7 @@ import ec.com.models.ProductEntity;
 import ec.com.models.TransactionItemEntity;
 import ec.com.models.UserEntity;
 import ec.com.services.ProductService;
+import ec.com.services.TransactionService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -25,7 +26,11 @@ public class UserPaymentConfirmationController{
 	private ProductService productService;
 	
 	@Autowired
+	private TransactionService transactionService;
+	
+	@Autowired
 	private HttpSession session;
+	
 	
 	//支払い確認画面
 	@GetMapping("/payment/confirmation")
@@ -61,6 +66,7 @@ public class UserPaymentConfirmationController{
 			//ここでソースコード
 			//Serviceを使用して
 			//把history和所有的item的对象都存入数据库
+			transactionService.transactionDataStore(cart, "card", user.getUserId());
 			return "redirect:/user/payment/succeed";
 		}
 	}
