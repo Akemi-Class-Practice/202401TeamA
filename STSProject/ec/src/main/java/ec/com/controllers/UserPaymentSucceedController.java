@@ -25,4 +25,9 @@ public class UserPaymentSucceedController {
 	public String succeedPage(Model model) {
 		return"/user/userpaymentfinished.html";
 	}
+	
+	//和之前的cartController差不多
+	
+	
+	
 }
