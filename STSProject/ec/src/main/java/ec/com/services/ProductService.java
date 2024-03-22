@@ -17,8 +17,8 @@ public class ProductService {
 	@Autowired
 	private ProductRepository productRepo;
 	
-	//登録管理
-	public boolean productRegisterCheck(String productName,String productPrice,String productDetail,String productImage
+	//商品登録
+	public boolean productRegisterCheck(String productName,Integer productPrice,String productDetail,String productImage
 										,@DateTimeFormat(pattern = "yyyy-MM-dd-HH-mm-ss-") Date registerDate,AdminEntity admin ) {
 		if(productRepo.findByProductName(productName) == null) {
 			productRepo.save(new ProductEntity(productName,productPrice,productDetail,productImage,0,registerDate,admin));
@@ -38,8 +38,8 @@ public class ProductService {
 	}
 	
 	
-	//商品登録
-	public boolean productUpdateCheck(Long productId,String productName,String productPrice,String productDetail,String productImage
+	//商品情報更新
+	public boolean productUpdateCheck(Long productId,String productName,Integer productPrice,String productDetail,String productImage
 			,@DateTimeFormat(pattern = "yyyy-MM-dd-HH-mm-ss-") Date registerDate,AdminEntity admin ) {
 		ProductEntity productEntity = productRepo.findByProductId(productId);
 		if(productEntity == null || admin.getAdminId() == null) {

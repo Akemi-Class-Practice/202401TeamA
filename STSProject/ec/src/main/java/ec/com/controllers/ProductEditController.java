@@ -48,7 +48,7 @@ public class ProductEditController {
 	//AdminセッションでログインしてNullでしたらLogin画面に止まる
 	//そうではない場合、商品の写真編集
 	@PostMapping("/edit")
-	public String editProduct(@RequestParam Long productId,@RequestParam String productName,@RequestParam String productPrice, 
+	public String editProduct(@RequestParam Long productId,@RequestParam String productName,@RequestParam Integer productPrice, 
 						@RequestParam String productDetail, @RequestParam MultipartFile productImg,
 						@RequestParam Date registerDate,Model model){
 		AdminEntity admin=(AdminEntity)session.getAttribute("admin");

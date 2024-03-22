@@ -23,8 +23,7 @@ public class TransactionItemEntity {
 		
 	}
 
-	public TransactionItemEntity(Long orderId, Long productId, Long historyId) {
-		this.orderId = orderId;
+	public TransactionItemEntity(Long productId, Long historyId) {
 		this.productId = productId;
 		this.historyId = historyId;
 	}

@@ -39,7 +39,7 @@ public class ProductRegisterController {
 	//もし、Admin==null
 	//ログイン画面にリダイレクトする
 	@PostMapping("/register")													//Integer
-	public String registerProduct(@RequestParam String productName, @RequestParam String productPrice,
+	public String registerProduct(@RequestParam String productName, @RequestParam Integer productPrice,
 			 @RequestParam String productDetail,@RequestParam MultipartFile productImg, Date registerDate,
 			Model model) {
 		AdminEntity admin = (AdminEntity)session.getAttribute("admin");
