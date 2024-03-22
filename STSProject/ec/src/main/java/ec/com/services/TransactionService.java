@@ -42,10 +42,7 @@ public class TransactionService {
 			Long productId = product.getProductId();
 			//用id创建新的item并存入数据库
 			transactionItemRepo.save(new TransactionItemEntity(productId, transactionHistoryEntity.getHistoryId()));
-		}
-		
-		
-		
+		}						
 		return true;
 	}
 		
