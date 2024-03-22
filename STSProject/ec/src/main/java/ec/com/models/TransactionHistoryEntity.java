@@ -18,7 +18,7 @@ public class TransactionHistoryEntity {
 	private Long historyId;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date peroductPurchaseDetaTimeDate;
+	private Date productpurchaseDateTime;
 	
 	private int totalPrice;
 	
@@ -30,10 +30,9 @@ public class TransactionHistoryEntity {
 
 	}
 
-	public TransactionHistoryEntity(Long historyId, Date peroductPurchaseDetaTimeDate, int totalPrice, String payment,
+	public TransactionHistoryEntity(Date productpurchaseDateTime, int totalPrice, String payment,
 			Long userId) {
-		this.historyId = historyId;
-		this.peroductPurchaseDetaTimeDate = peroductPurchaseDetaTimeDate;
+		this.productpurchaseDateTime = productpurchaseDateTime;
 		this.totalPrice = totalPrice;
 		this.payment = payment;
 		this.userId = userId;
@@ -47,12 +46,12 @@ public class TransactionHistoryEntity {
 		this.historyId = historyId;
 	}
 
-	public Date getPeroductPurchaseDetaTimeDate() {
-		return peroductPurchaseDetaTimeDate;
+	public Date getProductpurchaseDateTime() {
+		return productpurchaseDateTime;
 	}
 
-	public void setPeroductPurchaseDetaTimeDate(Date peroductPurchaseDetaTimeDate) {
-		this.peroductPurchaseDetaTimeDate = peroductPurchaseDetaTimeDate;
+	public void setProductpurchaseDateTime(Date productpurchaseDateTime) {
+		this.productpurchaseDateTime = productpurchaseDateTime;
 	}
 
 	public int getTotalPrice() {

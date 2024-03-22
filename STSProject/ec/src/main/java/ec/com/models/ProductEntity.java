@@ -21,7 +21,7 @@ public class ProductEntity {
 	private Long productId;
 	
 	private String productName;
-	private String productPrice;
+	private Integer productPrice;
 	private String productDetail;
 	private String productImage;
 	private Integer deleteFlg;
@@ -39,7 +39,7 @@ public class ProductEntity {
 	
 	//コンストラクタ
 
-	public ProductEntity(String productName, String productPrice, String productDetail, String productImage,
+	public ProductEntity(String productName, Integer productPrice, String productDetail, String productImage,
 			Integer deleteFlg, Date registerDate, AdminEntity admin) {
 		this.productName = productName;
 		this.productPrice = productPrice;
@@ -68,11 +68,11 @@ public class ProductEntity {
 		this.productName = productName;
 	}
 
-	public String getProductPrice() {
+	public Integer getProductPrice() {
 		return productPrice;
 	}
 
-	public void setProductPrice(String productPrice) {
+	public void setProductPrice(Integer productPrice) {
 		this.productPrice = productPrice;
 	}
 
