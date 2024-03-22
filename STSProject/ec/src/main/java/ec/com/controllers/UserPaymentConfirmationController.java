@@ -46,6 +46,9 @@ public class UserPaymentConfirmationController{
 		if (cart == null) {
 			return "redirect:/user/payment/confirmation";
 		}else {
+			//做一個HistoryService
+			//把所有的Item創建出來，存在數據庫（History會包含3-4個Item）
+			
 			return "redirect:/user/payment/succeed";
 		}
 	}
