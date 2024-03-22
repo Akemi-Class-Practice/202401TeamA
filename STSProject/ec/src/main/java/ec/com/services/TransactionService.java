@@ -16,7 +16,7 @@ import ec.com.repositories.TransactionItemRepository;
 import ec.com.repositories.TransactionRepository;
 
 @Service
-public class TransactionSercice {
+public class TransactionService {
 
 	@Autowired
 	private TransactionHistoryRepository transactionHistoryRepo;
