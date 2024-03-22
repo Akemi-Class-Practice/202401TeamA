@@ -30,6 +30,18 @@ public class UserPaymentConfirmationController{
 	//支払い確認画面
 	@GetMapping("/payment/confirmation")
 	public String getUserPaymentConfirmationPage (Model model) {
+		//Sessionからカートの情報を取得する
+		List<ProductEntity> cartList = (List<ProductEntity>)session.getAttribute("cart");
+		
+		System.out.println(cartList);
+		
+		model.addAttribute("cartList",cartList);
+//				//Sessionからユーザーの情報を取得する
+//				UserEntity user = (UserEntity)session.getAttribute("user");
+//				model.addAttribute("user",user);
+//				//今日の日付を取得する
+//				LocalDate today = LocalDate.now();
+//				model.addAttribute("today",today);
 		return "/user/userpaymentconfirm.html";
 	}
 	
@@ -52,7 +64,13 @@ public class UserPaymentConfirmationController{
 			return "redirect:/user/payment/succeed";
 		}
 	}
-	
+	@GetMapping("/purchased/history")
+	public String getPurchasedHistory (Model model) {
+		List<ProductEntity> cart = (List<ProductEntity>) session.getAttribute("cart");
+		UserEntity user = (UserEntity) session.getAttribute("user");
+		model.addAttribute("user",user);
+		return "/user/userpurchasedhistory.html";
+	}
 }
 	
 	

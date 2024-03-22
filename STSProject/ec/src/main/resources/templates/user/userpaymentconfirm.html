@@ -36,11 +36,19 @@
 	<div>
 		<h1>支払い情報を確認してください</h1>
 	</div>
-	<form th:action="@{/user/payment/proceed}" method="post">
-		<div class="product">
-			<img src="./image/pic2.jpg" alt="">
-			<p>20,0000万円</p>
+	
+	<section class="cart">
+		<div class="product1" th:each="cart:${cartList}">
+			<img th:src="'/product-img/'+${cart.productImage}" alt="">
+			<p th:text="'金額：'+${cart.productPrice}"></p>
 		</div>
+	</section>
+	
+	<form th:action="@{/user/payment/proceed}" method="post">
+		<!--<div class="product">
+			<img th:src="@{/image/pic2.jpg}" alt="">
+			<p>20,0000万円</p>
+		</div>-->
 		<div class="payment-confirmation">
 			<!--input-->
 			<input type="text" name="creditCardNumber" placeholder="クレジットカード番号" required>
