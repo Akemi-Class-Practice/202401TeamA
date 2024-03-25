@@ -31,8 +31,6 @@ public class UserPaymentSucceedController {
 		// Sessionからカートの情報を取得する
 		List<ProductEntity> cartList = (List<ProductEntity>) session.getAttribute("cart");
 
-		System.out.println(cartList);
-
 		model.addAttribute("cartList", cartList);
 
 		//清空購物車

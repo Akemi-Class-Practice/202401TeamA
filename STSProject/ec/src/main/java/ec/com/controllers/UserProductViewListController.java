@@ -20,11 +20,9 @@ public class UserProductViewListController {
 	@Autowired
 	private ProductService productService;
 
-	
+	//商品一覧
 	@GetMapping("/viewlist")
 	public String getUserProductViewList(Model model) {
-			
-		
 			List<ProductEntity> userProductList = productService.userProductList();
 			model.addAttribute("userProductList",userProductList);
 			return "homepage.html";

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import ec.com.models.ProductEntity;
 import ec.com.models.TransactionHistoryEntity;
 import ec.com.models.TransactionItemEntity;
+import ec.com.models.UserEntity;
 import ec.com.repositories.TransactionHistoryRepository;
 import ec.com.repositories.TransactionItemRepository;
 import ec.com.repositories.TransactionRepository;
@@ -42,9 +43,18 @@ public class TransactionService {
 			Long productId = product.getProductId();
 			//用id创建新的item并存入数据库
 			transactionItemRepo.save(new TransactionItemEntity(productId, transactionHistoryEntity.getHistoryId()));
+
+		}
+		
+		
+
+
 		}						
+
 		return true;
 	}
-		
+	
+	
 }
+
 	
