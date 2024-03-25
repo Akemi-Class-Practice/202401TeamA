@@ -27,15 +27,14 @@ public class TransactionItemEntity {
 		this.productId = productId;
 		this.historyId = historyId;
 	}
-
 	
 	//カプセル化　ゲッターとセッター
 	public Long getOrderId() {
 		return orderId;
 	}
 
-	public void setPrderId(Long prderId) {
-		this.orderId = prderId;
+	public void setOrderId(Long orderId) {
+		this.orderId = orderId;
 	}
 
 	public Long getProductId() {
@@ -53,6 +52,4 @@ public class TransactionItemEntity {
 	public void setHistoryId(Long historyId) {
 		this.historyId = historyId;
 	}
-
-	
 }
