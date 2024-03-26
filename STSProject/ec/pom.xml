@@ -46,11 +46,7 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>ecsite.com</groupId>
-			<artifactId>ECsite</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+		
 	</dependencies>
 
 	<build>
