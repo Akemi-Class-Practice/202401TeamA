@@ -1,5 +1,6 @@
 package ec.com.controlles;
 
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
@@ -36,62 +37,62 @@ public class UserLoginControllerTest {
 	//user 登録の確認
 	@BeforeEach
 	public void prepareDaa() {
-		UserEntity userEntity = new UserEntity();
-		when(userService.userCheckLogin(any(),any())).thenReturn(null);
-		when(userService.userCheckLogin(any(),any())).thenReturn(userEntity);
+		UserEntity userEntity = new UserEntity("123456","123456","usertest@test.com",0);
+		when(userService.userCheckLogin(eq("123456"),eq("123456"))).thenReturn(userEntity);
+		when(userService.userCheckLogin(eq(""),eq("123456"))).thenReturn(null);
+		when(userService.userCheckLogin(eq("123456"),eq(""))).thenReturn(null);
 	}
 	
 	@Test
 	public void testGetLoginPage_Succeed()throws Exception{
-		RequestBuilder request = MockMvcRequestBuilders.get("/user/user_login");
+		RequestBuilder request = MockMvcRequestBuilders.get("/user/login");
 		
-		mockMvc.perform(request).andExpect(view().name("user_login"));
+		mockMvc.perform(request)
+		.andExpect(view().name("/user/user_login.html"));
 	}
 
 	@Test
 	public void testLogin_Succeeful() throws Exception{
-		RequestBuilder request = MockMvcRequestBuilders.post("/user/user_login")
-								.param("","")
-								.param("","");
+		RequestBuilder request = MockMvcRequestBuilders.post("/user/login")
+								.param("username","123456")
+								.param("password","123456");
 		
-		MvcResult result = mockMvc.perform(request).andExpect(redirectedUrl("")).andReturn();
+		MvcResult result = mockMvc.perform(request).andExpect(redirectedUrl("/user/product/viewlist")).andReturn();
 		HttpSession session =  result.getRequest().getSession();
 		
-		UserEntity loggedInUser = (UserEntity) session.getAttribute("UserInfo");
+		UserEntity loggedInUser = (UserEntity) session.getAttribute("user");
 		assertNotNull(loggedInUser);
-		assertEquals("",loggedInUser.getUserName());
-		assertEquals("",loggedInUser.getUserPassword());
 		
 	}
 
 	@Test
 	public void testLogin_WrongUserName() throws Exception{
-		RequestBuilder request = MockMvcRequestBuilders.post("/user/user_login")
-								.param("","")
-								.param("","");
+		RequestBuilder request = MockMvcRequestBuilders.post("/user/login")
+								.param("username","")
+								.param("password","123456");
 		
-		MvcResult result = mockMvc.perform(request).andExpect(view().name("User_login.html"))
+		MvcResult result = mockMvc.perform(request).andExpect(view().name("/user/user_register.html"))
 													.andReturn();
 		
 		HttpSession session =  result.getRequest().getSession();
 		
-		UserEntity loginUser = (UserEntity) session.getAttribute("UserInfo");
-		assertNotNull(loginUser);		
+		UserEntity loginUser = (UserEntity) session.getAttribute("user");
+		assertNull(loginUser);		
 	}
 	
 	@Test
 	public void testLogin_WrongUserPassword() throws Exception{
-		RequestBuilder request = MockMvcRequestBuilders.post("/user/user_login")
-								.param("","")
-								.param("","");
+		RequestBuilder request = MockMvcRequestBuilders.post("/user/login")
+								.param("username","123456")
+								.param("password","");
 		
-		MvcResult result = mockMvc.perform(request).andExpect(view().name("User_login.html"))
+		MvcResult result = mockMvc.perform(request).andExpect(view().name("/user/user_register.html"))
 													.andReturn();
 		
 		HttpSession session =  result.getRequest().getSession();
 		
-		UserEntity loginUser = (UserEntity) session.getAttribute("UserInfo");
-		assertNotNull(loginUser);		
+		UserEntity loginUser = (UserEntity) session.getAttribute("user");
+		assertNull(loginUser);		
 	}
 }
 
