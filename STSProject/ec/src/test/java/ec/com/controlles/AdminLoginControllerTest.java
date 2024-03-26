@@ -2,8 +2,11 @@ package ec.com.controlles;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -37,24 +40,33 @@ public class AdminLoginControllerTest {
 	// Admin登録の確認
 	@BeforeEach
 	public void prepareData() {
-		AdminEntity adminEntity = new AdminEntity();
-		when(adminService.adminCheckLogin(any(), any())).thenReturn(null);
-		when(adminService.adminCheckLogin(any(), any())).thenReturn(adminEntity);
+		//括弧裏的變數參考Entity
+		AdminEntity adminEntity = new AdminEntity("1234","test@test.com","1234",0);
+
+		when(adminService.adminCheckLogin(eq("1234"), eq("1234"))).thenReturn(adminEntity);
+		when(adminService.adminCheckLogin(eq(""), eq("1234"))).thenReturn(null);
+		when(adminService.adminCheckLogin(eq("1234"), eq(""))).thenReturn(null);
+		when(adminService.adminCheckLogin(eq("1234"), eq(""))).thenReturn(null);
 	}
 
 	@Test
 	public void testAdminLoginPage_Succeed() throws Exception {
 		RequestBuilder request = MockMvcRequestBuilders.get("/admin/login");
 
-		mockMvc.perform(request).andExpect(view().name("/admin/login-admin.html"));
+		mockMvc.perform(request)
+		//28行的測試
+		.andExpect(model().attribute("error",false))
+		.andExpect(view().name("/admin/login-admin.html"));
+		
 	}
 	
 	@Test
 	public void testAdminLogout_Suceed()throws Exception{
-		RequestBuilder request = MockMvcRequestBuilders.get("/logout");
-		mockMvc.perform(request).andExpect(view().name("/admin/login-admin.html"));
+		RequestBuilder request = MockMvcRequestBuilders.get("/admin/logout");
+		mockMvc.perform(request).andExpect(redirectedUrl("/admin/login"));
 	}
 
+	
 	@Test
 	public void testAdminLogin_Succeed() throws Exception {
 		RequestBuilder request = MockMvcRequestBuilders.post("/admin/login")
@@ -64,34 +76,54 @@ public class AdminLoginControllerTest {
 				.andExpect(redirectedUrl("/admin/product/listview")).andReturn();
 		HttpSession session = result.getRequest().getSession();
 
-		AdminEntity loggedInAdmin = (AdminEntity) session.getAttribute("AdminInfo");
+		AdminEntity loggedInAdmin = (AdminEntity) session.getAttribute("admin");
 		assertNotNull(loggedInAdmin);
-		assertEquals("", loggedInAdmin.getAdminName());
-		assertEquals("", loggedInAdmin.getAdminPassword());
+		assertEquals("1234", loggedInAdmin.getAdminName());
+		assertEquals("1234", loggedInAdmin.getAdminPassword());
 	}
 
 	@Test
 	public void testAdminLogin_WrongAdminName() throws Exception {
 		RequestBuilder request = MockMvcRequestBuilders.post("/admin/login")
-		.param("", "").param("", "");
+		.param("adminName", "").param("adminPassword", "1234");
 		
-		MvcResult result = mockMvc.perform(request).andExpect(view().name("login-admin.html")).andReturn();
+		MvcResult result = mockMvc.perform(request)
+				.andExpect(model().attribute("error",true))
+				.andExpect(view().name("/admin/login-admin.html")).andReturn();
 		HttpSession session = result.getRequest().getSession();
 		
-		AdminEntity loginAdmin = (AdminEntity) session.getAttribute("AdminInfo");
-		assertNotNull(loginAdmin);
+		AdminEntity loginAdmin = (AdminEntity) session.getAttribute("admin");
+		assertNull(loginAdmin);
 	}
 	
 	@Test
 	public void testAdminLogin_WrongAdminPassword()throws Exception{
 		RequestBuilder request = MockMvcRequestBuilders.post("/admin/login")
-				.param("", "").param("", "");
+				.param("adminName", "1234").param("adminPassword", "");
 	
-		MvcResult result = mockMvc.perform(request).andExpect(view().name("login-admin.html")).andReturn();
+		MvcResult result = mockMvc.perform(request).andExpect(view().name("/admin/login-admin.html")).andReturn();
 		HttpSession session = result.getRequest().getSession();
 		
-		AdminEntity loginAdmin = (AdminEntity) session.getAttribute("AdminInfo");
-		assertNotNull(loginAdmin);
+		AdminEntity loginAdmin = (AdminEntity) session.getAttribute("admin");
+		//Login AdminNullですか、ないですか、そういうテストです。
+		assertNull(loginAdmin);
 	}
+	
+	@Test
+	public void testAdminLogin_NullAdminNameAndNullAdminPassword()throws Exception{
+		RequestBuilder request = MockMvcRequestBuilders.post("/admin/login")
+				.param("adminName", "").param("adminPassword", "");
+		
+		MvcResult result = mockMvc.perform(request).andExpect(view().name("/admin/login-admin.html")).andReturn();
+		HttpSession session = result.getRequest().getSession();
+		
+		AdminEntity loginAdmin = (AdminEntity) session.getAttribute("admin");
+		//Login AdminNullですか、ないですか、そういうテストです。
+		assertNull(loginAdmin);
+	
+		
+		
+	}
+	
 
 }
