@@ -42,11 +42,10 @@ public class AdminLoginControllerTest {
 	public void prepareData() {
 		//括弧裏的變數參考Entity
 		AdminEntity adminEntity = new AdminEntity("1234","test@test.com","1234",0);
-
 		when(adminService.adminCheckLogin(eq("1234"), eq("1234"))).thenReturn(adminEntity);
 		when(adminService.adminCheckLogin(eq(""), eq("1234"))).thenReturn(null);
 		when(adminService.adminCheckLogin(eq("1234"), eq(""))).thenReturn(null);
-		when(adminService.adminCheckLogin(eq("1234"), eq(""))).thenReturn(null);
+		when(adminService.adminCheckLogin(eq(""), eq(""))).thenReturn(null);
 	}
 
 	@Test
