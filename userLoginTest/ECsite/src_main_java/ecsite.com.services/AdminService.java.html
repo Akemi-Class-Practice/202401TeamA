@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>AdminService.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">UserLoginControllerTest (2024年3月26日 下午4:21:48)</a> &gt; <a href="../../index.html" class="el_group">ECsite</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">ecsite.com.services</a> &gt; <span class="el_source">AdminService.java</span></div><h1>AdminService.java</h1><pre class="source lang-java linenums">package ecsite.com.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import ecsite.com.models.AdminEntity;
+import ecsite.com.repositories.AdminRepository;
+
+@Service
+<span class="nc" id="L10">public class AdminService {</span>
+
+	@Autowired
+	private AdminRepository adminRepo;
+	
+	//管理者の登録処理と登録するためのチェック　boolean
+	//もし、findByAdminEmail == null だったらsaveを使って保存処理をする⇒true
+	//そうでない場合は、保存処理をしない=&gt;false
+	public boolean createAdmin(String name,String email,String password) {
+<span class="nc bnc" id="L19" title="All 2 branches missed.">		if(adminRepo.findByAdminEmail(email) == null) {</span>
+<span class="nc" id="L20">			adminRepo.save(new AdminEntity(email,name,password));</span>
+<span class="nc" id="L21">			return true;</span>
+		}else {
+<span class="nc" id="L23">			return false;</span>
+		}
+	}
+	
+		
+	
+	//管理者のログインチェック
+	//もし、findByAdminEmailAndpassword == null　ログインしない　null
+	//そうでない場合はログインをする ログインしている人の情報を渡す
+	public AdminEntity checkLogin(String email,String password) {
+<span class="nc" id="L33">		AdminEntity adminEntity = adminRepo.findByAdminEmailAndPassword(email,password);</span>
+<span class="nc bnc" id="L34" title="All 2 branches missed.">		if(adminEntity == null) {</span>
+<span class="nc" id="L35">			return null;</span>
+		}else {
+<span class="nc" id="L37">			return adminEntity;</span>
+		}
+	}
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span>UserLoginControllerTest (2024年3月26日 下午4:21:48)</div></body></html>

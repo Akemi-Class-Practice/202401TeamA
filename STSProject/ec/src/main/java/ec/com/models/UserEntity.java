@@ -14,6 +14,8 @@ import jakarta.persistence.Table;
 @Table
 public class UserEntity {
 
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long userId;
@@ -40,6 +42,15 @@ public class UserEntity {
 		this.deleteFlg = deleteFlg;
 		this.transactionHistory = transactionHistory;
 	}
+	
+	public UserEntity(String userName, String userPassword, String userEmail, Integer deleteFlg) {
+		this.userName = userName;
+		this.userPassword = userPassword;
+		this.userEmail = userEmail;
+		this.deleteFlg = deleteFlg;
+	}
+	
+	
 
 	//カプセル化
 	public Long getUserId() {

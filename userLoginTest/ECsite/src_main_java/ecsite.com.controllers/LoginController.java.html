@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>LoginController.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">UserLoginControllerTest (2024年3月26日 下午4:21:48)</a> &gt; <a href="../../index.html" class="el_group">ECsite</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">ecsite.com.controllers</a> &gt; <span class="el_source">LoginController.java</span></div><h1>LoginController.java</h1><pre class="source lang-java linenums">package ecsite.com.controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import ecsite.com.models.AdminEntity;
+import ecsite.com.services.AdminService;
+import jakarta.servlet.http.HttpSession;
+
+@Controller
+<span class="nc" id="L14">public class LoginController {</span>
+	//他のメゾンドを呼び出し
+	@Autowired
+	private AdminService adminService;
+	
+	//Sessionを使えるように宣言
+	@Autowired
+	private HttpSession session;
+	
+
+	@GetMapping(&quot;/login&quot;)
+	public String getLoginPage() {
+<span class="nc" id="L26">		return &quot;admin_login.html&quot;;</span>
+	}
+
+	//ログイン処理
+	//adminService.checkLogin()⇒変数に格納admin
+	//もし　admin == null admin_login.htmlを表示する
+	//そうでない場合は、
+	//ログインの情報変数adminをsessionにセットする
+	//商品一覧画面にリダイレクトする
+	@PostMapping(&quot;/login/process&quot;)
+	public String login(@RequestParam String adminEmail,@RequestParam String password) {
+<span class="nc" id="L37">		AdminEntity admin = adminService.checkLogin(adminEmail,password);</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">		if(admin == null) {</span>
+<span class="nc" id="L39">			return &quot;admin_login.html&quot;;</span>
+		}else {
+			//セッションにログインしている人の情報をセットする
+<span class="nc" id="L42">			session.setAttribute(&quot;adminInfo&quot;,admin);</span>
+<span class="nc" id="L43">			return &quot;redirect:/product/list&quot;;</span>
+		}
+	
+	}
+	//ログアウト処理
+		@GetMapping(&quot;/logout&quot;)
+		public String logout() {
+			//セッションの無効化
+<span class="nc" id="L51">			session.invalidate();</span>
+<span class="nc" id="L52">			return &quot;redirect:/login&quot;;</span>
+			
+		}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span>UserLoginControllerTest (2024年3月26日 下午4:21:48)</div></body></html>

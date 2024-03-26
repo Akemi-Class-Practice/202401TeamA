@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>ProductEntity.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">UserLoginControllerTest (2024年3月26日 下午4:21:48)</a> &gt; <a href="../../index.html" class="el_group">ECsite</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">ecsite.com.models</a> &gt; <span class="el_source">ProductEntity.java</span></div><h1>ProductEntity.java</h1><pre class="source lang-java linenums">package ecsite.com.models;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name=&quot;products&quot;)
+public class ProductEntity {
+
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long productId; 
+		
+	private String productCategory;
+	private String productDescription;
+	private String productImage;
+	private String productName;
+	
+	//コンストラクタ
+<span class="nc" id="L24">	public ProductEntity() {</span>
+
+<span class="nc" id="L26">	}</span>
+	
+	
+<span class="nc" id="L29">	public ProductEntity(String productCategory, String productDescription, String productImage, String productName) {</span>
+<span class="nc" id="L30">		this.productCategory = productCategory;</span>
+<span class="nc" id="L31">		this.productDescription = productDescription;</span>
+<span class="nc" id="L32">		this.productImage = productImage;</span>
+<span class="nc" id="L33">		this.productName = productName;</span>
+<span class="nc" id="L34">	}</span>
+
+
+	//カプセル化
+	public Long getProductId() {
+<span class="nc" id="L39">		return productId;</span>
+	}
+
+
+	public void setProductId(Long productId) {
+<span class="nc" id="L44">		this.productId = productId;</span>
+<span class="nc" id="L45">	}</span>
+
+
+	public String getProductCategory() {
+<span class="nc" id="L49">		return productCategory;</span>
+	}
+
+
+	public void setProductCategory(String productCategory) {
+<span class="nc" id="L54">		this.productCategory = productCategory;</span>
+<span class="nc" id="L55">	}</span>
+
+
+	public String getProductDescription() {
+<span class="nc" id="L59">		return productDescription;</span>
+	}
+
+
+	public void setProductDescription(String productDescription) {
+<span class="nc" id="L64">		this.productDescription = productDescription;</span>
+<span class="nc" id="L65">	}</span>
+
+
+	public String getProductImage() {
+<span class="nc" id="L69">		return productImage;</span>
+	}
+
+
+	public void setProductImage(String productImage) {
+<span class="nc" id="L74">		this.productImage = productImage;</span>
+<span class="nc" id="L75">	}</span>
+
+
+	public String getProductName() {
+<span class="nc" id="L79">		return productName;</span>
+	}
+
+
+	public void setProductName(String productName) {
+<span class="nc" id="L84">		this.productName = productName;</span>
+<span class="nc" id="L85">	}</span>
+
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span>UserLoginControllerTest (2024年3月26日 下午4:21:48)</div></body></html>
