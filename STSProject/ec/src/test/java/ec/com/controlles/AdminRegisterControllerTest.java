@@ -77,7 +77,7 @@ public class AdminRegisterControllerTest {
 		.andExpect(model().attribute("error",true))
 		.andExpect(view().name("/admin/register-admin.html"));
 		verify(adminService, times(1)).createAdmin(eq("123"), eq("test@test.com"), eq("existingPassword"));
-		.andExpect(view().name("/admin/register-admin.html"));
+		
 		
 	}
 }
