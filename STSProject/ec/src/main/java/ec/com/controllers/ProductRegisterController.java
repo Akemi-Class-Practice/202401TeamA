@@ -46,7 +46,7 @@ public class ProductRegisterController {
 		if (admin == null) {
 			return "redirect:/admin/login";
 		} else {
-			String fileName = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-").format(registerDate)
+			String fileName = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-SSS-").format(new java.util.Date())
 					+ productImg.getOriginalFilename();
 			try {
 				Files.copy(productImg.getInputStream(), Path.of("src/main/resources/static/product-img/" + fileName));
