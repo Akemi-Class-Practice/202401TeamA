@@ -46,7 +46,12 @@
 			<scope>test</scope>
 		</dependency>
 
-		
+
+		<dependency>
+			<groupId>lombok.com</groupId>
+			<artifactId>Test-1</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>

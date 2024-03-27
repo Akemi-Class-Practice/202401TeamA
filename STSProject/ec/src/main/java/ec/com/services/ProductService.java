@@ -20,6 +20,7 @@ public class ProductService {
 	//商品登録
 	public boolean productRegisterCheck(String productName,Integer productPrice,String productDetail,String productImage
 										,@DateTimeFormat(pattern = "yyyy-MM-dd-HH-mm-ss-") Date registerDate,AdminEntity admin ) {
+		//沒有同名商品的時候，商品就能被注冊成功
 		if(productRepo.findByProductName(productName) == null) {
 			productRepo.save(new ProductEntity(productName,productPrice,productDetail,productImage,0,registerDate,admin));
 			return true;
