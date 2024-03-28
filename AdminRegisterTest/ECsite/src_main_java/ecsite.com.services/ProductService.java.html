@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>ProductService.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AdminRegisterControllerTest (Mar 26, 2024 1:46:08 PM)</a> &gt; <a href="../../index.html" class="el_group">ECsite</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">ecsite.com.services</a> &gt; <span class="el_source">ProductService.java</span></div><h1>ProductService.java</h1><pre class="source lang-java linenums">package ecsite.com.services;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import ecsite.com.models.ProductEntity;
+import ecsite.com.repositories.ProductRepository;
+
+@Service
+<span class="nc" id="L12">public class ProductService {</span>
+	
+	@Autowired
+	private ProductRepository productRepo;
+	
+	//商品一覧のチェック
+	//もし、adminId ==null return null
+	//そうでない場合は、商品一覧の情報　findAll をControllerクラスに渡す
+	public List&lt;ProductEntity&gt; selectAll(Long adminId){
+<span class="nc bnc" id="L21" title="All 2 branches missed.">		if(adminId ==null) {</span>
+<span class="nc" id="L22">			return null;</span>
+		}else {
+<span class="nc" id="L24">			return productRepo.findAll();</span>
+	}
+		
+	}
+	//Check Product Register
+	//商品登録のチェック
+	//productRepo.findByProductName == null  save登録 true
+	//商品の登録はしない false
+	public boolean createProduct(String category,String description,String image,String name) {
+<span class="nc bnc" id="L33" title="All 2 branches missed.">		if(productRepo.findByProductName(name)== null) {</span>
+<span class="nc" id="L34">			productRepo.save(new ProductEntity(category,description,image,name));</span>
+<span class="nc" id="L35">			return true;</span>
+		}else {
+<span class="nc" id="L37">			return false;</span>
+		}
+	}
+	//編集画面の表示をするときのチェック
+	//もし、主キーがnullだっらコントローラークラスにはデータを送らない
+	//そうでない場合は、編集した情報のデータをコントローラークラスに渡す。
+	public ProductEntity getProductPost1(Long productId) {
+<span class="nc bnc" id="L44" title="All 2 branches missed.">		if(productId == null) {</span>
+<span class="nc" id="L45">			return null;</span>
+		}else {
+<span class="nc" id="L47">			return productRepo.findByProductId(productId);</span>
+		}
+	}
+	
+	
+	//編集データの更新のチェック
+		//もし、productId==null　更新処理はしない
+		public boolean editProduct(Long productId, String productCategory, String productDescription, String productImage,
+				String productName) {
+<span class="nc bnc" id="L56" title="All 2 branches missed.">			if (productId == null) {</span>
+<span class="nc" id="L57">				return false;</span>
+			} else {
+				// 更新処理
+				// productDao.save(new
+				// ProductEntity(productId,productCategory,productDescription,productImage,productName));
+				//編集前のデータを呼び出している
+<span class="nc" id="L63">				ProductEntity products = productRepo.findByProductId(productId);</span>
+				//更新したい情報だけsetを使って変数の内容を上書きする
+<span class="nc" id="L65">				products.setProductCategory(productCategory);</span>
+<span class="nc" id="L66">				products.setProductDescription(productDescription);</span>
+<span class="nc" id="L67">				products.setProductImage(productImage);</span>
+<span class="nc" id="L68">				products.setProductName(productName);</span>
+				//更新処理をする。
+<span class="nc" id="L70">				productRepo.save(products);</span>
+<span class="nc" id="L71">				return true;</span>
+			}
+		}
+			
+	public ProductEntity getProductPost(Long productId) {
+<span class="nc bnc" id="L76" title="All 2 branches missed.">		if(productId == null) {</span>
+<span class="nc" id="L77">			return null;</span>
+		}else {
+<span class="nc" id="L79">			return productRepo.findByProductId(productId);</span>
+		}
+	}
+	
+		//削除するメソッド
+		//productId　==null false
+		//削除処理　true
+		public boolean deleteProduct(Long productId) {
+<span class="nc bnc" id="L87" title="All 2 branches missed.">			if(productId == null) {</span>
+<span class="nc" id="L88">				return false;</span>
+			}else {
+<span class="nc" id="L90">				productRepo.deleteById(productId);</span>
+<span class="nc" id="L91">				return true;</span>
+			}
+		}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span>AdminRegisterControllerTest (Mar 26, 2024 1:46:08 PM)</div></body></html>

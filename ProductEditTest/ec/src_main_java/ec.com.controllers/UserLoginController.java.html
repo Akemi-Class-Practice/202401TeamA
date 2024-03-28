@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>UserLoginController.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">ProductEditControllerTest (Mar 28, 2024 3:53:41 PM)</a> &gt; <a href="../../index.html" class="el_group">ec</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">ec.com.controllers</a> &gt; <span class="el_source">UserLoginController.java</span></div><h1>UserLoginController.java</h1><pre class="source lang-java linenums">package ec.com.controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import ec.com.models.UserEntity;
+import ec.com.services.UserService;
+import jakarta.servlet.http.HttpSession;
+
+@Controller
+@RequestMapping(&quot;/user&quot;)
+<span class="fc" id="L17">public class UserLoginController {</span>
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private HttpSession session;
+	
+	@GetMapping(&quot;/login&quot;)
+	private String getUserLoginPage(Model model) {
+<span class="nc" id="L26">		model.addAttribute(&quot;error&quot;,false);</span>
+<span class="nc" id="L27">		return &quot;/user/user_login.html&quot;;</span>
+
+}	
+	//UserServicesからUser名とUserPasswordをチェック
+	//Nullでしたら、UserRegister画面に戻る
+	//そうじゃない場合、UserLogin画面に止まる
+	@PostMapping(&quot;/login&quot;)
+	private String login(@RequestParam String username,@RequestParam String password,Model model) {
+		
+<span class="nc" id="L36">		UserEntity user = userService.userCheckLogin(username,password);</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">	     if (user == null) {</span>
+<span class="nc" id="L38">	    	 return &quot;/user/user_register.html&quot;;</span>
+	     }else {
+<span class="nc" id="L40">	    	 session.setAttribute(&quot;user&quot;,user);</span>
+<span class="nc" id="L41">	    	 String url = (String) session.getAttribute(&quot;backLoginpage&quot;);</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">	    	 if(url == null) {</span>
+<span class="nc" id="L43">	    		 return &quot;redirect:/user/product/viewlist&quot;;</span>
+	    	 }else {
+<span class="nc" id="L45">	    		 return&quot;redirect:&quot;+url;</span>
+	    	 }
+	    	 
+	     }
+	}
+	@GetMapping(&quot;/logout&quot;)
+	public String userLogout() {
+<span class="nc" id="L52">		session.invalidate();</span>
+<span class="nc" id="L53">		return &quot;redirect:/user/login&quot;;</span>
+	}
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span>ProductEditControllerTest (Mar 28, 2024 3:53:41 PM)</div></body></html>

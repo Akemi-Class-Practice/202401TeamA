@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>TransactionService.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">ProductEditControllerTest (Mar 28, 2024 3:53:41 PM)</a> &gt; <a href="../../index.html" class="el_group">ec</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">ec.com.services</a> &gt; <span class="el_source">TransactionService.java</span></div><h1>TransactionService.java</h1><pre class="source lang-java linenums">package ec.com.services;
+
+import java.sql.Date;
+import java.util.List;
+
+import org.apache.naming.java.javaURLContextFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.stereotype.Service;
+
+import ec.com.models.ProductEntity;
+import ec.com.models.TransactionHistoryEntity;
+import ec.com.models.TransactionItemEntity;
+import ec.com.models.UserEntity;
+import ec.com.repositories.TransactionHistoryRepository;
+import ec.com.repositories.TransactionItemRepository;
+import ec.com.repositories.TransactionRepository;
+
+@Service
+<span class="fc" id="L20">public class TransactionService {</span>
+
+	@Autowired
+	private TransactionHistoryRepository transactionHistoryRepo;
+	
+	@Autowired
+	private TransactionItemRepository transactionItemRepo;
+	
+	//購入履歴のデータ貯蔵
+	public boolean transactionDataStore(List&lt;ProductEntity&gt; cart, String payment, Long userId) {
+<span class="nc" id="L30">		Date now = new Date(System.currentTimeMillis());</span>
+		//商品値段合計算（求和公式或者积）
+<span class="nc" id="L32">		int totalPrice = 0;</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">		for(ProductEntity product : cart) {</span>
+<span class="nc" id="L34">			totalPrice += product.getProductPrice();</span>
+		}
+<span class="nc" id="L36">		TransactionHistoryEntity transactionHistoryEntity = transactionHistoryRepo.save(new TransactionHistoryEntity(</span>
+<span class="nc" id="L37">				now, totalPrice, payment, userId</span>
+				));
+
+		//对象存入的循环
+<span class="nc bnc" id="L41" title="All 2 branches missed.">		for(ProductEntity product : cart) {</span>
+			//把商品ID取出来放入一个变量（productID）中
+<span class="nc" id="L43">			Long productId = product.getProductId();</span>
+			//用id创建新的item并存入数据库
+<span class="nc" id="L45">			transactionItemRepo.save(new TransactionItemEntity(productId, transactionHistoryEntity.getHistoryId()));</span>
+
+		}
+		
+						
+
+<span class="nc" id="L51">		return true;</span>
+	}
+	
+	
+}
+
+	
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span>ProductEditControllerTest (Mar 28, 2024 3:53:41 PM)</div></body></html>

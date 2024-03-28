@@ -70,7 +70,7 @@ public class ProductRegisterControllerTest {
 
 		mockMvc.perform(request)
 
-				.andExpect(view().name("/admin/product-login.html"));
+		.andExpect(view().name("/admin/product-login.html"));
 	}
 	
 
@@ -82,9 +82,13 @@ public class ProductRegisterControllerTest {
 		MockMultipartFile productImg = new MockMultipartFile("productImg", fileName, "image/jpeg", new byte[0]);
 
 		RequestBuilder request = MockMvcRequestBuilders.multipart("/admin/product/register").file(productImg)
-				.param("productName", "").param("productPrice", "0").param("productDetail", "")
-				.param("registerDate", "2024-03-27").session(session);
-		mockMvc.perform(request).andExpect(redirectedUrl("/admin/product/listview"));
+				.param("productName", "")
+				.param("productPrice", "0")
+				.param("productDetail", "")
+				.param("registerDate", "2024-03-27")
+				.session(session);
+		mockMvc.perform(request)
+		.andExpect(redirectedUrl("/admin/product/listview"));
 
 	}
 

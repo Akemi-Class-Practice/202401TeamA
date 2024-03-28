@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>ProductViewListController.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">ProductEditControllerTest (Mar 28, 2024 3:53:41 PM)</a> &gt; <a href="../../index.html" class="el_group">ec</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">ec.com.controllers</a> &gt; <span class="el_source">ProductViewListController.java</span></div><h1>ProductViewListController.java</h1><pre class="source lang-java linenums">package ec.com.controllers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import ec.com.models.AdminEntity;
+import ec.com.models.ProductEntity;
+import ec.com.services.ProductService;
+import jakarta.servlet.http.HttpSession;
+
+@Controller
+@RequestMapping(&quot;/admin/product&quot;)
+<span class="fc" id="L18">public class ProductViewListController {</span>
+
+	@Autowired
+	private ProductService productService;
+
+	@Autowired
+	private HttpSession session;
+	
+	@GetMapping(&quot;/listview&quot;)
+	public String getAdminProductViewList(Model model) {
+<span class="nc" id="L28">		AdminEntity admin = (AdminEntity)session.getAttribute(&quot;admin&quot;);</span>
+<span class="nc bnc" id="L29" title="All 2 branches missed.">		if (admin == null) {</span>
+<span class="nc" id="L30">			return &quot;redirect:/admin/login&quot;;</span>
+		}else {
+<span class="nc" id="L32">			List&lt;ProductEntity&gt; productList = productService.productList(admin.getAdminId());</span>
+<span class="nc" id="L33">			model.addAttribute(&quot;productList&quot;,productList);</span>
+<span class="nc" id="L34">			return &quot;/admin/product.html&quot;;</span>
+		}
+		
+		
+	}
+	
+	
+	//
+	
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span>ProductEditControllerTest (Mar 28, 2024 3:53:41 PM)</div></body></html>
