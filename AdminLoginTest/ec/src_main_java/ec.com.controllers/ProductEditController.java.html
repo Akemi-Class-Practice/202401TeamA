@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>ProductEditController.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AdminLoginControllerTest (Mar 26, 2024 10:26:51 AM)</a> &gt; <a href="../../index.html" class="el_group">ec</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">ec.com.controllers</a> &gt; <span class="el_source">ProductEditController.java</span></div><h1>ProductEditController.java</h1><pre class="source lang-java linenums">package ec.com.controllers;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.text.SimpleDateFormat;
+import java.sql.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import ec.com.models.AdminEntity;
+import ec.com.models.ProductEntity;
+import ec.com.services.ProductService;
+import jakarta.servlet.http.HttpSession;
+
+@Controller
+@RequestMapping(&quot;/admin&quot;)
+<span class="fc" id="L26">public class ProductEditController {</span>
+	
+	@Autowired
+	private ProductService productService;
+
+	@Autowired
+	private HttpSession session;
+
+	@GetMapping(&quot;/edit/{productId}&quot;)
+										//URL中のデータを所得すること
+	private String getProductEditPage(@PathVariable Long productId,Model model) {
+<span class="nc" id="L37">		AdminEntity admin=(AdminEntity)session.getAttribute(&quot;admin&quot;);</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">		if(admin == null) {</span>
+<span class="nc" id="L39">			return &quot;redirect:/login-admin&quot;; </span>
+		}else {
+<span class="nc" id="L41">			ProductEntity product = productService.editPageCheck(admin.getAdminId(),productId);</span>
+<span class="nc" id="L42">			model.addAttribute(&quot;product&quot;,product);</span>
+<span class="nc" id="L43">			return &quot;/admin/product-delete.html&quot;;</span>
+		}
+		
+	}
+	
+	//AdminセッションでログインしてNullでしたらLogin画面に止まる
+	//そうではない場合、商品の写真編集
+	@PostMapping(&quot;/edit&quot;)
+	public String editProduct(@RequestParam Long productId,@RequestParam String productName,@RequestParam Integer productPrice, 
+						@RequestParam String productDetail, @RequestParam MultipartFile productImg,
+						@RequestParam Date registerDate,Model model){
+<span class="nc" id="L54">		AdminEntity admin=(AdminEntity)session.getAttribute(&quot;admin&quot;);</span>
+
+<span class="nc bnc" id="L56" title="All 2 branches missed.">		if (admin == null) {</span>
+<span class="nc" id="L57">			return &quot;redirect:/login-admin&quot;;</span>
+		}else {
+			//写真編集
+<span class="nc" id="L60">			String fileName = new SimpleDateFormat(&quot;yyyy-MM-dd-HH-mm-ss-&quot;).format(registerDate)</span>
+<span class="nc" id="L61">					+ productImg.getOriginalFilename();</span>
+			try {
+<span class="nc" id="L63">				Files.copy(productImg.getInputStream(), Path.of(&quot;src/main/resources/static/product-img/&quot; + fileName));</span>
+<span class="nc" id="L64">			} catch (IOException e) {</span>
+<span class="nc" id="L65">				e.printStackTrace();</span>
+			}
+			//もし登録が成功でしたら、商品変更にリダイレクト
+			//そうではない、商品ログイン画面に止まる
+<span class="nc" id="L69">			if(productService.productUpdateCheck(productId,productName,productPrice,productDetail,</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">											fileName,registerDate,admin)) {</span>
+<span class="nc" id="L71">				return &quot;redirect:/admin/product/listview&quot;;</span>
+			}else {
+<span class="nc" id="L73">				return &quot;/admin/product-login.html&quot;;</span>
+			}
+		}
+		
+						
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span>AdminLoginControllerTest (Mar 26, 2024 10:26:51 AM)</div></body></html>

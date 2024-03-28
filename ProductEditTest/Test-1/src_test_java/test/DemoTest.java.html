@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>DemoTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">ProductEditControllerTest (Mar 28, 2024 3:53:41 PM)</a> &gt; <a href="../../index.html" class="el_group">Test-1</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">test</a> &gt; <span class="el_source">DemoTest.java</span></div><h1>DemoTest.java</h1><pre class="source lang-java linenums">package test;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.aspectj.lang.annotation.Before;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+<span class="nc" id="L9">public class DemoTest {</span>
+<span class="nc" id="L10">	private static Demo demo = new Demo();</span>
+	
+	@BeforeEach
+	public void prepare() {
+<span class="nc" id="L14">		demo = new Demo();</span>
+<span class="nc" id="L15">	}</span>
+	
+	@Test
+	  //測試的方法名        //哪種情況   //返回值（How？）
+	public void testIsPrime_PrimeNumber_True() {
+		//把3帶進去的話結果應該是True 
+<span class="nc" id="L21">		assertTrue( demo.isPrime(3) );</span>
+<span class="nc" id="L22">		assertTrue( demo.isPrime(17) );</span>
+<span class="nc" id="L23">		assertTrue( demo.isPrime(5) );</span>
+		
+<span class="nc" id="L25">	}</span>
+	
+	@Test
+	public void testIsPrime_NotPrimeNumber_False() {
+		//把10帶進去的話結果應該是False
+<span class="nc" id="L30">		assertFalse(demo.isPrime(10));</span>
+<span class="nc" id="L31">		assertFalse(demo.isPrime(0));</span>
+<span class="nc" id="L32">		assertFalse(demo.isPrime(44));</span>
+<span class="nc" id="L33">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span>ProductEditControllerTest (Mar 28, 2024 3:53:41 PM)</div></body></html>

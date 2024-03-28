@@ -57,7 +57,7 @@ public class ProductEditController {
 			return "redirect:/login-admin";
 		}else {
 			//写真編集
-			String fileName = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-").format(registerDate)
+			String fileName = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-SSS-").format(new java.util.Date())
 					+ productImg.getOriginalFilename();
 			try {
 				Files.copy(productImg.getInputStream(), Path.of("src/main/resources/static/product-img/" + fileName));

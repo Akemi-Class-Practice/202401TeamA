@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>AdminLoginControllerTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AdminRegisterControllerTest (Mar 26, 2024 1:46:08 PM)</a> &gt; <a href="../../index.html" class="el_group">ec</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">ec.com.controlles</a> &gt; <span class="el_source">AdminLoginControllerTest.java</span></div><h1>AdminLoginControllerTest.java</h1><pre class="source lang-java linenums">package ec.com.controlles;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import ec.com.models.AdminEntity;
+import ec.com.models.UserEntity;
+import ec.com.services.AdminService;
+import jakarta.servlet.http.HttpSession;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+<span class="nc" id="L32">public class AdminLoginControllerTest {</span>
+
+	@Autowired
+	private MockMvc mockMvc;
+
+	@MockBean
+	private AdminService adminService;
+
+	// Admin登録の確認
+	@BeforeEach
+	public void prepareData() {
+		//括弧裏的變數參考Entity
+<span class="nc" id="L44">		AdminEntity adminEntity = new AdminEntity(&quot;1234&quot;,&quot;test@test.com&quot;,&quot;1234&quot;,0);</span>
+<span class="nc" id="L45">		when(adminService.adminCheckLogin(eq(&quot;1234&quot;), eq(&quot;1234&quot;))).thenReturn(adminEntity);</span>
+<span class="nc" id="L46">		when(adminService.adminCheckLogin(eq(&quot;&quot;), eq(&quot;1234&quot;))).thenReturn(null);</span>
+<span class="nc" id="L47">		when(adminService.adminCheckLogin(eq(&quot;1234&quot;), eq(&quot;&quot;))).thenReturn(null);</span>
+<span class="nc" id="L48">		when(adminService.adminCheckLogin(eq(&quot;&quot;), eq(&quot;&quot;))).thenReturn(null);</span>
+<span class="nc" id="L49">	}</span>
+
+	@Test
+	public void testAdminLoginPage_Succeed() throws Exception {
+<span class="nc" id="L53">		RequestBuilder request = MockMvcRequestBuilders.get(&quot;/admin/login&quot;);</span>
+
+<span class="nc" id="L55">		mockMvc.perform(request)</span>
+		//28行的測試
+<span class="nc" id="L57">		.andExpect(model().attribute(&quot;error&quot;,false))</span>
+<span class="nc" id="L58">		.andExpect(view().name(&quot;/admin/login-admin.html&quot;));</span>
+		
+<span class="nc" id="L60">	}</span>
+	
+	@Test
+	public void testAdminLogout_Suceed()throws Exception{
+<span class="nc" id="L64">		RequestBuilder request = MockMvcRequestBuilders.get(&quot;/admin/logout&quot;);</span>
+<span class="nc" id="L65">		mockMvc.perform(request).andExpect(redirectedUrl(&quot;/admin/login&quot;));</span>
+<span class="nc" id="L66">	}</span>
+
+	
+	@Test
+	public void testAdminLogin_Succeed() throws Exception {
+<span class="nc" id="L71">		RequestBuilder request = MockMvcRequestBuilders.post(&quot;/admin/login&quot;)</span>
+<span class="nc" id="L72">				.param(&quot;adminName&quot;, &quot;1234&quot;).param(&quot;adminPassword&quot;, &quot;1234&quot;);</span>
+
+<span class="nc" id="L74">		MvcResult result = mockMvc.perform(request)</span>
+<span class="nc" id="L75">				.andExpect(redirectedUrl(&quot;/admin/product/listview&quot;)).andReturn();</span>
+<span class="nc" id="L76">		HttpSession session = result.getRequest().getSession();</span>
+
+<span class="nc" id="L78">		AdminEntity loggedInAdmin = (AdminEntity) session.getAttribute(&quot;admin&quot;);</span>
+<span class="nc" id="L79">		assertNotNull(loggedInAdmin);</span>
+<span class="nc" id="L80">		assertEquals(&quot;1234&quot;, loggedInAdmin.getAdminName());</span>
+<span class="nc" id="L81">		assertEquals(&quot;1234&quot;, loggedInAdmin.getAdminPassword());</span>
+<span class="nc" id="L82">	}</span>
+
+	@Test
+	public void testAdminLogin_WrongAdminName() throws Exception {
+<span class="nc" id="L86">		RequestBuilder request = MockMvcRequestBuilders.post(&quot;/admin/login&quot;)</span>
+<span class="nc" id="L87">		.param(&quot;adminName&quot;, &quot;&quot;).param(&quot;adminPassword&quot;, &quot;1234&quot;);</span>
+		
+<span class="nc" id="L89">		MvcResult result = mockMvc.perform(request)</span>
+<span class="nc" id="L90">				.andExpect(model().attribute(&quot;error&quot;,true))</span>
+<span class="nc" id="L91">				.andExpect(view().name(&quot;/admin/login-admin.html&quot;)).andReturn();</span>
+<span class="nc" id="L92">		HttpSession session = result.getRequest().getSession();</span>
+		
+<span class="nc" id="L94">		AdminEntity loginAdmin = (AdminEntity) session.getAttribute(&quot;admin&quot;);</span>
+<span class="nc" id="L95">		assertNull(loginAdmin);</span>
+<span class="nc" id="L96">	}</span>
+	
+	@Test
+	public void testAdminLogin_WrongAdminPassword()throws Exception{
+<span class="nc" id="L100">		RequestBuilder request = MockMvcRequestBuilders.post(&quot;/admin/login&quot;)</span>
+<span class="nc" id="L101">				.param(&quot;adminName&quot;, &quot;1234&quot;).param(&quot;adminPassword&quot;, &quot;&quot;);</span>
+	
+<span class="nc" id="L103">		MvcResult result = mockMvc.perform(request).andExpect(view().name(&quot;/admin/login-admin.html&quot;)).andReturn();</span>
+<span class="nc" id="L104">		HttpSession session = result.getRequest().getSession();</span>
+		
+<span class="nc" id="L106">		AdminEntity loginAdmin = (AdminEntity) session.getAttribute(&quot;admin&quot;);</span>
+		//Login AdminNullですか、ないですか、そういうテストです。
+<span class="nc" id="L108">		assertNull(loginAdmin);</span>
+<span class="nc" id="L109">	}</span>
+	
+	@Test
+	public void testAdminLogin_NullAdminNameAndNullAdminPassword()throws Exception{
+<span class="nc" id="L113">		RequestBuilder request = MockMvcRequestBuilders.post(&quot;/admin/login&quot;)</span>
+<span class="nc" id="L114">				.param(&quot;adminName&quot;, &quot;&quot;).param(&quot;adminPassword&quot;, &quot;&quot;);</span>
+		
+<span class="nc" id="L116">		MvcResult result = mockMvc.perform(request).andExpect(view().name(&quot;/admin/login-admin.html&quot;)).andReturn();</span>
+<span class="nc" id="L117">		HttpSession session = result.getRequest().getSession();</span>
+		
+<span class="nc" id="L119">		AdminEntity loginAdmin = (AdminEntity) session.getAttribute(&quot;admin&quot;);</span>
+		//Login AdminNullですか、ないですか、そういうテストです。
+<span class="nc" id="L121">		assertNull(loginAdmin);</span>
+	
+		
+		
+<span class="nc" id="L125">	}</span>
+	
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span>AdminRegisterControllerTest (Mar 26, 2024 1:46:08 PM)</div></body></html>
