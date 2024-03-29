@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>ProductRegisterControllerTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">RegisterAndLoginIntegrationTest (Mar 29, 2024 11:20:24 AM)</a> &gt; <a href="../../index.html" class="el_group">ec</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">ec.com.controlles</a> &gt; <span class="el_source">ProductRegisterControllerTest.java</span></div><h1>ProductRegisterControllerTest.java</h1><pre class="source lang-java linenums">package ec.com.controlles;
+
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.mock.web.MockHttpSession;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.RequestBuilder;
+
+import ec.com.models.AdminEntity;
+import ec.com.models.ProductEntity;
+import ec.com.services.ProductService;
+import jakarta.servlet.http.HttpSession;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+<span class="nc" id="L36">public class ProductRegisterControllerTest {</span>
+	@Autowired
+	private MockMvc mockMvc;
+
+	@MockBean
+	private ProductService productService;
+
+	private MockHttpSession session;
+	
+	private MockHttpSession emptySession;
+
+	@BeforeEach
+	public void prepareData() {
+		// 設一個Admin對象
+<span class="nc" id="L50">		AdminEntity admin = new AdminEntity();</span>
+<span class="nc" id="L51">		admin.setAdminId(1L);</span>
+<span class="nc" id="L52">		admin.setAdminName(&quot;123&quot;);</span>
+
+<span class="nc" id="L54">		when(productService.productRegisterCheck(any(), any(), any(), any(), any(), any())).thenReturn(true);</span>
+		//when(productService.productList(any())).thenReturn(null);
+		//when(productService.productRegisterCheck(eq(null), any(), any(), any(), any(), any())).thenReturn(false);
+<span class="nc" id="L57">		when(productService.productRegisterCheck(eq(&quot;PC1&quot;), any(), any(), any(), any(), any())).thenReturn(false);</span>
+		
+		//這是空的Session
+<span class="nc" id="L60">		emptySession=new MockHttpSession();</span>
+
+		// 存一個Admin對象到Session裏
+<span class="nc" id="L63">		session = new MockHttpSession();</span>
+<span class="nc" id="L64">		session.setAttribute(&quot;admin&quot;, admin);</span>
+<span class="nc" id="L65">	}</span>
+
+	@Test
+	public void testGetProductRegisterPage_Succeed() throws Exception {
+<span class="nc" id="L69">		RequestBuilder request = MockMvcRequestBuilders.get(&quot;/admin/product/register&quot;);</span>
+
+<span class="nc" id="L71">		mockMvc.perform(request)</span>
+
+<span class="nc" id="L73">		.andExpect(view().name(&quot;/admin/product-login.html&quot;));</span>
+<span class="nc" id="L74">	}</span>
+	
+
+	// 商品名が正しければ”/admin/product/register”へのPOSTリクエスト作成する
+	@Test
+	public void testProductRegister_differentProductName_Succeed() throws Exception {
+		// 創建照片對象
+<span class="nc" id="L81">		String fileName = &quot;test-image.jpg&quot;;</span>
+<span class="nc" id="L82">		MockMultipartFile productImg = new MockMultipartFile(&quot;productImg&quot;, fileName, &quot;image/jpeg&quot;, new byte[0]);</span>
+
+<span class="nc" id="L84">		RequestBuilder request = MockMvcRequestBuilders.multipart(&quot;/admin/product/register&quot;).file(productImg)</span>
+<span class="nc" id="L85">				.param(&quot;productName&quot;, &quot;&quot;)</span>
+<span class="nc" id="L86">				.param(&quot;productPrice&quot;, &quot;0&quot;)</span>
+<span class="nc" id="L87">				.param(&quot;productDetail&quot;, &quot;&quot;)</span>
+<span class="nc" id="L88">				.param(&quot;registerDate&quot;, &quot;2024-03-27&quot;)</span>
+<span class="nc" id="L89">				.session(session);</span>
+<span class="nc" id="L90">		mockMvc.perform(request)</span>
+<span class="nc" id="L91">		.andExpect(redirectedUrl(&quot;/admin/product/listview&quot;));</span>
+
+<span class="nc" id="L93">	}</span>
+
+	// 商品名が正しくなければ”/admin/product/register”へのPOSTリクエスト作成する
+	@Test
+	public void testProductRegister_sameProductName_Failed()throws Exception{
+		
+		//創建照片對象
+<span class="nc" id="L100">		String fileName = &quot;test-image.jpg&quot;;</span>
+<span class="nc" id="L101">		MockMultipartFile productImg = new MockMultipartFile(&quot;productImg&quot;, fileName, &quot;image/jpeg&quot;, new byte[0]);</span>
+	
+		//テスト実行
+<span class="nc" id="L104">		RequestBuilder request=MockMvcRequestBuilders.multipart(&quot;/admin/product/register&quot;)</span>
+<span class="nc" id="L105">				.file(productImg)</span>
+<span class="nc" id="L106">				.param(&quot;productName&quot;, &quot;PC1&quot;)</span>
+<span class="nc" id="L107">				.param(&quot;productPrice&quot;,&quot;0&quot;)</span>
+<span class="nc" id="L108">				.param(&quot;productDetail&quot;, &quot;&quot;)</span>
+<span class="nc" id="L109">				.param(&quot;registerDate&quot;, &quot;2024-03-27&quot;)</span>
+<span class="nc" id="L110">				.session(session);</span>
+<span class="nc" id="L111">		mockMvc.perform(request)</span>
+<span class="nc" id="L112">		.andExpect(view().name(&quot;/admin/product-login.html&quot;));</span>
+<span class="nc" id="L113">	}</span>
+	
+	@Test
+	public void testProductRegister_nullAdminName_Failed()throws Exception{
+		
+<span class="nc" id="L118">		String fileName = &quot;test-image.jpg&quot;;</span>
+<span class="nc" id="L119">		MockMultipartFile productImg = new MockMultipartFile(&quot;productImg&quot;, fileName, &quot;image/jpeg&quot;, new byte[0]);</span>
+
+<span class="nc" id="L121">		RequestBuilder request=MockMvcRequestBuilders.multipart(&quot;/admin/product/register&quot;)</span>
+<span class="nc" id="L122">				.file(productImg)</span>
+<span class="nc" id="L123">				.param(&quot;productName&quot;, &quot;PC1&quot;)</span>
+<span class="nc" id="L124">				.param(&quot;productPrice&quot;,&quot;0&quot;)</span>
+<span class="nc" id="L125">				.param(&quot;productDetail&quot;, &quot;&quot;)</span>
+<span class="nc" id="L126">				.param(&quot;registerDate&quot;, &quot;2024-03-27&quot;)</span>
+<span class="nc" id="L127">				.session(emptySession);</span>
+<span class="nc" id="L128">		mockMvc.perform(request)</span>
+<span class="nc" id="L129">		.andExpect(redirectedUrl(&quot;/admin/login&quot;));</span>
+		
+<span class="nc" id="L131">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span>RegisterAndLoginIntegrationTest (Mar 29, 2024 11:20:24 AM)</div></body></html>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>RegisterAndLoginIntegrationTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">RegisterAndLoginIntegrationTest (Mar 29, 2024 11:20:24 AM)</a> &gt; <a href="../../index.html" class="el_group">ec</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">ec.com.integration</a> &gt; <span class="el_source">RegisterAndLoginIntegrationTest.java</span></div><h1>RegisterAndLoginIntegrationTest.java</h1><pre class="source lang-java linenums">package ec.com.integration;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.transaction.annotation.Transactional;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+
+<span class="fc" id="L19">public class RegisterAndLoginIntegrationTest {</span>
+	@Autowired
+	private MockMvc mockMvc;
+	
+	@Test
+	public void testRegisterAndLogin_NewUser_Succeed()throws Exception{
+		//登録ページを表示させるテスト
+<span class="fc" id="L26">		RequestBuilder request = MockMvcRequestBuilders</span>
+<span class="fc" id="L27">				.get(&quot;/user/register&quot;);</span>
+<span class="fc" id="L28">		mockMvc.perform(request)</span>
+		//UserRegisterController 26
+<span class="fc" id="L30">		.andExpect(model().attribute(&quot;error&quot;,false))</span>
+<span class="fc" id="L31">		.andExpect(view().name(&quot;/user/user_register.html&quot;));</span>
+	
+	
+		// 登録する
+<span class="fc" id="L35">		request = MockMvcRequestBuilders</span>
+<span class="fc" id="L36">					.post(&quot;/user/register&quot;)</span>
+<span class="fc" id="L37">					.param(&quot;username&quot;, &quot;Alice&quot;)</span>
+<span class="fc" id="L38">					.param(&quot;userPassword&quot;, &quot;1234&quot;)</span>
+<span class="fc" id="L39">					.param(&quot;userEmail&quot;, &quot;test@test.com&quot;);</span>
+		
+<span class="fc" id="L41">		mockMvc.perform(request)</span>
+<span class="fc" id="L42">		.andExpect(redirectedUrl(&quot;/user/login&quot;));</span>
+		
+		//ログイン処理
+<span class="fc" id="L45">		request = MockMvcRequestBuilders</span>
+<span class="fc" id="L46">				.post(&quot;/user/login&quot;)</span>
+<span class="fc" id="L47">				.param(&quot;username&quot;, &quot;Alice&quot;)</span>
+<span class="fc" id="L48">				.param(&quot;password&quot;, &quot;1234&quot;);</span>
+<span class="fc" id="L49">		mockMvc.perform(request)</span>
+		//UserLoginController 43
+<span class="fc" id="L51">		.andExpect(redirectedUrl(&quot;/user/product/viewlist&quot;));</span>
+		
+<span class="fc" id="L53">	}</span>
+		//パスワードが間違っている場合のテスト
+	@Test
+	public void testRegisterAndLogin_WrongPassword_Failed()throws Exception{
+<span class="fc" id="L57">		RequestBuilder request = MockMvcRequestBuilders</span>
+<span class="fc" id="L58">				.get(&quot;/user/login&quot;);</span>
+<span class="fc" id="L59">		mockMvc.perform(request)</span>
+		//UserLoginController 26 &amp; 27
+<span class="fc" id="L61">		.andExpect(model().attribute(&quot;error&quot;,false))</span>
+<span class="fc" id="L62">		.andExpect(view().name(&quot;/user/user_login.html&quot;));</span>
+		
+		//ログイン失敗処理
+<span class="fc" id="L65">		request = MockMvcRequestBuilders</span>
+<span class="fc" id="L66">				.post(&quot;/user/login&quot;)</span>
+<span class="fc" id="L67">				.param(&quot;username&quot;, &quot;Alice&quot;)</span>
+<span class="fc" id="L68">				.param(&quot;password&quot;, &quot;WrongPassword1234&quot;);</span>
+<span class="fc" id="L69">		mockMvc.perform(request)</span>
+		//UserLoginController 38
+<span class="fc" id="L71">		.andExpect(view().name(&quot;/user/user_register.html&quot;));</span>
+			
+<span class="fc" id="L73">	}</span>
+		//ユーザーネームを間違って失敗
+	@Test
+	public void testRegisterAndLogin_WrongUsername_Failed()throws Exception{
+<span class="fc" id="L77">		RequestBuilder request = MockMvcRequestBuilders</span>
+<span class="fc" id="L78">				.get(&quot;/user/login&quot;);</span>
+<span class="fc" id="L79">		mockMvc.perform(request)</span>
+		//UserLoginController 26 &amp; 27
+<span class="fc" id="L81">		.andExpect(model().attribute(&quot;error&quot;,false))</span>
+<span class="fc" id="L82">		.andExpect(view().name(&quot;/user/user_login.html&quot;));</span>
+		
+<span class="fc" id="L84">		request = MockMvcRequestBuilders</span>
+<span class="fc" id="L85">				.post(&quot;/user/login&quot;)</span>
+<span class="fc" id="L86">				.param(&quot;username&quot;, &quot;AliceWrongName&quot;)</span>
+<span class="fc" id="L87">				.param(&quot;password&quot;, &quot;1234&quot;);</span>
+<span class="fc" id="L88">		mockMvc.perform(request)</span>
+		//UserLoginController 38
+<span class="fc" id="L90">		.andExpect(view().name(&quot;/user/user_register.html&quot;));</span>
+<span class="fc" id="L91">}	</span>
+	//既に登録したユーザーがいる場合、登録が失敗する場合テスト
+	@Test
+	public void testRegisterAndLogin_ExistingUsername_Failed()throws Exception{
+		//1 登録ページ表示させる
+<span class="fc" id="L96">		RequestBuilder request = MockMvcRequestBuilders</span>
+<span class="fc" id="L97">				.get(&quot;/user/register&quot;);</span>
+<span class="fc" id="L98">		mockMvc.perform(request)</span>
+		//UserRegisterController 26
+<span class="fc" id="L100">		.andExpect(model().attribute(&quot;error&quot;,false))</span>
+<span class="fc" id="L101">		.andExpect(view().name(&quot;/user/user_register.html&quot;));</span>
+	
+	
+		// 登録する
+<span class="fc" id="L105">		request = MockMvcRequestBuilders</span>
+<span class="fc" id="L106">					.post(&quot;/user/register&quot;)</span>
+<span class="fc" id="L107">					.param(&quot;username&quot;, &quot;Bob&quot;)</span>
+<span class="fc" id="L108">					.param(&quot;userPassword&quot;, &quot;bob1234&quot;)</span>
+<span class="fc" id="L109">					.param(&quot;userEmail&quot;, &quot;bob@test.com&quot;);</span>
+		
+<span class="fc" id="L111">		mockMvc.perform(request)</span>
+<span class="fc" id="L112">		.andExpect(redirectedUrl(&quot;/user/login&quot;));</span>
+		
+		//2 登録ページ表示させる
+<span class="fc" id="L115">		request = MockMvcRequestBuilders</span>
+<span class="fc" id="L116">				.get(&quot;/user/register&quot;);</span>
+<span class="fc" id="L117">		mockMvc.perform(request)</span>
+		//UserRegisterController 26
+<span class="fc" id="L119">		.andExpect(model().attribute(&quot;error&quot;,false))</span>
+<span class="fc" id="L120">		.andExpect(view().name(&quot;/user/user_register.html&quot;));</span>
+		
+		//3 登録処理
+<span class="fc" id="L123">		request = MockMvcRequestBuilders</span>
+<span class="fc" id="L124">							.post(&quot;/user/register&quot;)</span>
+<span class="fc" id="L125">							.param(&quot;username&quot;, &quot;Bob2&quot;)</span>
+<span class="fc" id="L126">							.param(&quot;userPassword&quot;, &quot;12341234&quot;)</span>
+<span class="fc" id="L127">							.param(&quot;userEmail&quot;, &quot;bob@test.com&quot;);</span>
+				
+<span class="fc" id="L129">		mockMvc.perform(request)</span>
+<span class="fc" id="L130">		.andExpect(model().attribute(&quot;error&quot;, true))</span>
+<span class="fc" id="L131">		.andExpect(view().name(&quot;/user/user_register.html&quot;));</span>
+	
+<span class="fc" id="L133">	}</span>
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span>RegisterAndLoginIntegrationTest (Mar 29, 2024 11:20:24 AM)</div></body></html>
