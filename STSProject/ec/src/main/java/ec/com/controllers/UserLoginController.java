@@ -32,7 +32,7 @@ public class UserLoginController {
 	//そうじゃない場合、UserLogin画面に止まる
 	@PostMapping("/login")
 	private String login(@RequestParam String username,@RequestParam String password,Model model) {
-		
+									//UsernameとPasswordはどっちも間違えたらNullになります。
 		UserEntity user = userService.userCheckLogin(username,password);
 	     if (user == null) {
 	    	 return "/user/user_register.html";
