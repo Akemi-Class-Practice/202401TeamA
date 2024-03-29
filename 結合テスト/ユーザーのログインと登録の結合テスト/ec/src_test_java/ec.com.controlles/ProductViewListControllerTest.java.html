@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>ProductViewListControllerTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">RegisterAndLoginIntegrationTest (2024年3月29日 上午11:20:28)</a> &gt; <a href="../../index.html" class="el_group">ec</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">ec.com.controlles</a> &gt; <span class="el_source">ProductViewListControllerTest.java</span></div><h1>ProductViewListControllerTest.java</h1><pre class="source lang-java linenums">package ec.com.controlles;
+
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.hamcrest.Matchers.*;
+import java.sql.Date;
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.mock.web.MockHttpSession;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import ec.com.models.AdminEntity;
+import ec.com.models.ProductEntity;
+import ec.com.services.ProductService;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+<span class="nc" id="L28">public class ProductViewListControllerTest {</span>
+
+	@Autowired
+	private MockMvc mockMvc;
+	
+	@MockBean
+	private ProductService productService;
+	
+	private MockHttpSession session;
+	private MockHttpSession emptySession;
+	
+	@BeforeEach
+	public void Data() {
+		//listを作成
+<span class="nc" id="L42">		ProductEntity productEntity = new ProductEntity();</span>
+		//
+<span class="nc" id="L44">		productEntity.setProductId(1L);</span>
+<span class="nc" id="L45">		productEntity.setProductName(&quot;PC1&quot;);</span>
+<span class="nc" id="L46">		productEntity.setProductPrice(1234);</span>
+<span class="nc" id="L47">		productEntity.setProductImage(&quot;PC1&quot;);</span>
+<span class="nc" id="L48">		productEntity.setRegisterDate(Date.valueOf(&quot;2024-03-28&quot;));//&quot;2024-03-28&quot;</span>
+<span class="nc" id="L49">		productEntity.setDeleteFlg(0);</span>
+						//商品のリスト
+<span class="nc" id="L51">		List&lt;ProductEntity&gt;productList = List.of(productEntity);</span>
+<span class="nc" id="L52">		when(productService.productList(1L)).thenReturn(productList);</span>
+		
+<span class="nc" id="L54">		emptySession = new MockHttpSession();</span>
+		
+<span class="nc" id="L56">		AdminEntity admin = new AdminEntity();</span>
+<span class="nc" id="L57">		admin.setAdminId(1L);</span>
+<span class="nc" id="L58">		admin.setAdminName(&quot;123&quot;);</span>
+		
+<span class="nc" id="L60">		session = new MockHttpSession();</span>
+<span class="nc" id="L61">		session.setAttribute(&quot;admin&quot;, admin);</span>
+<span class="nc" id="L62">	}</span>
+	
+	@Test
+	public void testGetProductViewListPage_NotInfo_Failed() throws Exception{
+<span class="nc" id="L66">		RequestBuilder request = MockMvcRequestBuilders.get(&quot;/admin/product/listview&quot;)</span>
+<span class="nc" id="L67">											.session(emptySession);</span>
+		
+<span class="nc" id="L69">		mockMvc.perform(request)</span>
+<span class="nc" id="L70">		.andExpect(redirectedUrl(&quot;/admin/login&quot;));</span>
+<span class="nc" id="L71">	}</span>
+	
+	@Test
+	public void testGetProductViewListPage_Info_Succeed() throws Exception{
+<span class="nc" id="L75">		RequestBuilder request = MockMvcRequestBuilders.get(&quot;/admin/product/listview&quot;)</span>
+<span class="nc" id="L76">				.session(session);</span>
+<span class="nc" id="L77">				mockMvc.perform(request).andExpect(view().name(&quot;/admin/product.html&quot;))</span>
+<span class="nc" id="L78">				.andExpect(model().attribute(&quot;productList&quot;, hasSize(1)));</span>
+<span class="nc" id="L79">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span>RegisterAndLoginIntegrationTest (2024年3月29日 上午11:20:28)</div></body></html>
