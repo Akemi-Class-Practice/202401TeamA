@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>ProductEditControllerTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">RegisterAndLoginIntegrationTest (2024年3月29日 上午11:20:28)</a> &gt; <a href="../../index.html" class="el_group">ec</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">ec.com.controlles</a> &gt; <span class="el_source">ProductEditControllerTest.java</span></div><h1>ProductEditControllerTest.java</h1><pre class="source lang-java linenums">package ec.com.controlles;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mockitoSession;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.queryParam;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
+import java.sql.Date;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.mock.web.MockHttpSession;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import ec.com.models.AdminEntity;
+import ec.com.models.ProductEntity;
+import ec.com.services.ProductService;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+<span class="nc" id="L32">public class ProductEditControllerTest {</span>
+	@Autowired
+	private MockMvc mockMvc;
+
+	@MockBean
+	private ProductService productService;
+
+	private MockHttpSession session;
+	
+	private MockHttpSession emptySession;
+	
+	private ProductEntity product;
+	
+	@BeforeEach
+	public void prepareData() {
+<span class="nc" id="L47">		AdminEntity admin = new AdminEntity();</span>
+<span class="nc" id="L48">		admin.setAdminId(1L);</span>
+		
+<span class="nc" id="L50">		product = new ProductEntity();</span>
+<span class="nc" id="L51">		product.setProductId(1L);</span>
+<span class="nc" id="L52">		product.setProductName(&quot;PC1&quot;);</span>
+<span class="nc" id="L53">		product.setProductPrice(1234);</span>
+<span class="nc" id="L54">		product.setProductDetail(&quot;aaaa&quot;);</span>
+<span class="nc" id="L55">		product.setProductImage(&quot;PC1&quot;);</span>
+<span class="nc" id="L56">		product.setRegisterDate(Date.valueOf(&quot;2024-03-28&quot;));</span>
+<span class="nc" id="L57">		product.setAdmin(admin);</span>
+		
+<span class="nc" id="L59">		emptySession=new MockHttpSession();</span>
+<span class="nc" id="L60">		session = new MockHttpSession();</span>
+<span class="nc" id="L61">		session.setAttribute(&quot;admin&quot;, admin);</span>
+	
+<span class="nc" id="L63">		when(productService.editPageCheck(any(), any())).thenReturn(null);</span>
+<span class="nc" id="L64">		when(productService.editPageCheck(any(), eq(1L))).thenReturn(product);</span>
+		
+<span class="nc" id="L66">		when(productService.productUpdateCheck(any(), any(), any(), any(), any(), any(), any())).thenReturn(false);</span>
+<span class="nc" id="L67">		when(productService.productUpdateCheck(eq(1L), any(), any(), any(), any(), any(), any())).thenReturn(true);</span>
+		
+		//when(productService.editPageCheck(eq(1L), eq(2L))).thenReturn(null);
+		//when(productService.editPageCheck(eq(1L), eq(1L))).thenReturn(product);
+<span class="nc" id="L71">	}</span>
+	
+	
+	
+	@Test
+	public void testGetProductEditPage_suceed()throws Exception{
+<span class="nc" id="L77">		RequestBuilder request = MockMvcRequestBuilders.get(&quot;/admin/edit/1&quot;)</span>
+<span class="nc" id="L78">			.session(session);</span>
+<span class="nc" id="L79">		mockMvc.perform(request)</span>
+<span class="nc" id="L80">		.andExpect(model().attribute(&quot;product&quot;, product))</span>
+<span class="nc" id="L81">		.andExpect(view().name(&quot;/admin/product-delete.html&quot;));</span>
+<span class="nc" id="L82">	}</span>
+	
+	@Test
+	public void testGetProductEditPage_failed()throws Exception {
+<span class="nc" id="L86">		RequestBuilder request = MockMvcRequestBuilders.get(&quot;/admin/edit/1&quot;)</span>
+<span class="nc" id="L87">				.session(emptySession);</span>
+<span class="nc" id="L88">		mockMvc.perform(request)		</span>
+<span class="nc" id="L89">		.andExpect(redirectedUrl(&quot;/login-admin&quot;));</span>
+		
+<span class="nc" id="L91">	}</span>
+	
+	@Test
+	public void testEditProduct_adminNull_failed()throws Exception{
+		// 創建照片對象
+<span class="nc" id="L96">		String fileName = &quot;test-image.jpg&quot;;</span>
+<span class="nc" id="L97">		MockMultipartFile productImg = new MockMultipartFile(&quot;productImg&quot;, fileName, &quot;image/jpeg&quot;, new byte[0]);</span>
+				
+<span class="nc" id="L99">		RequestBuilder request = MockMvcRequestBuilders.multipart(&quot;/admin/edit&quot;)</span>
+				//參考COntroller的參數
+<span class="nc" id="L101">				.file(productImg)</span>
+<span class="nc" id="L102">				.param(&quot;productId&quot;, &quot;1&quot;)</span>
+<span class="nc" id="L103">				.param(&quot;productName&quot;, &quot;PC1&quot;)</span>
+<span class="nc" id="L104">				.param(&quot;productPrice&quot;, &quot;1234&quot;)</span>
+<span class="nc" id="L105">				.param(&quot;productDetail&quot;, &quot;aaaa&quot;)</span>
+<span class="nc" id="L106">				.param(&quot;registerDate&quot;, &quot;2024-03-28&quot;)</span>
+<span class="nc" id="L107">				.session(emptySession);</span>
+<span class="nc" id="L108">		mockMvc.perform(request)</span>
+<span class="nc" id="L109">		.andExpect(redirectedUrl(&quot;/login-admin&quot;));</span>
+	
+<span class="nc" id="L111">	}</span>
+	
+	@Test
+	public void testEditProduct_productIDNotExist_Failed()throws Exception{
+<span class="nc" id="L115">		String fileName =&quot;test-image.jpg&quot;;</span>
+<span class="nc" id="L116">		MockMultipartFile productImg = new MockMultipartFile(&quot;productImg&quot;, fileName, &quot;image/jpeg&quot;, new byte[0]);</span>
+	
+<span class="nc" id="L118">		RequestBuilder request = MockMvcRequestBuilders.multipart(&quot;/admin/edit&quot;)</span>
+<span class="nc" id="L119">				.file(productImg)</span>
+<span class="nc" id="L120">				.param(&quot;productId&quot;, &quot;2&quot;)</span>
+<span class="nc" id="L121">				.param(&quot;productName&quot;, &quot;PC1&quot;)</span>
+<span class="nc" id="L122">				.param(&quot;productPrice&quot;, &quot;1234&quot;)</span>
+<span class="nc" id="L123">				.param(&quot;productDetail&quot;, &quot;aaaa&quot;)</span>
+<span class="nc" id="L124">				.param(&quot;registerDate&quot;, &quot;2024-03-28&quot;)</span>
+<span class="nc" id="L125">				.session(session);</span>
+<span class="nc" id="L126">		mockMvc.perform(request)</span>
+<span class="nc" id="L127">		.andExpect(view().name(&quot;/admin/product-login.html&quot;));</span>
+	
+<span class="nc" id="L129">	}</span>
+	
+	@Test 
+	public void testEditProduct_productIDExist_Succeed()throws Exception{
+<span class="nc" id="L133">		String fileName =&quot;test-image.jpg&quot;;</span>
+<span class="nc" id="L134">		MockMultipartFile productImg = new MockMultipartFile(&quot;productImg&quot;, fileName, &quot;image/jpeg&quot;, new byte[0]);</span>
+		
+<span class="nc" id="L136">		RequestBuilder request = MockMvcRequestBuilders.multipart(&quot;/admin/edit&quot;)</span>
+<span class="nc" id="L137">				.file(productImg)</span>
+<span class="nc" id="L138">				.param(&quot;productId&quot;, &quot;1&quot;)</span>
+<span class="nc" id="L139">				.param(&quot;productName&quot;, &quot;PC1&quot;)</span>
+<span class="nc" id="L140">				.param(&quot;productPrice&quot;, &quot;1234&quot;)</span>
+<span class="nc" id="L141">				.param(&quot;productDetail&quot;, &quot;aaaa&quot;)</span>
+<span class="nc" id="L142">				.param(&quot;registerDate&quot;, &quot;2024-03-28&quot;)</span>
+<span class="nc" id="L143">				.session(session);</span>
+		
+<span class="nc" id="L145">		mockMvc.perform(request)</span>
+<span class="nc" id="L146">		.andExpect(redirectedUrl(&quot;/admin/product/listview&quot;));</span>
+	
+	
+<span class="nc" id="L149">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span>RegisterAndLoginIntegrationTest (2024年3月29日 上午11:20:28)</div></body></html>
