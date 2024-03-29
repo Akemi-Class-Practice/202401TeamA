@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>UserPaymentConfirmationController.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">RegisterAndLoginIntegrationTest (Mar 29, 2024 11:20:24 AM)</a> &gt; <a href="../../index.html" class="el_group">ec</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">ec.com.controllers</a> &gt; <span class="el_source">UserPaymentConfirmationController.java</span></div><h1>UserPaymentConfirmationController.java</h1><pre class="source lang-java linenums">package ec.com.controllers;
+
+
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import ec.com.models.ProductEntity;
+import ec.com.models.SubscriptionEntity;
+import ec.com.models.TransactionItemEntity;
+import ec.com.models.UserEntity;
+import ec.com.services.ProductService;
+import ec.com.services.SubscriptionService;
+import ec.com.services.TransactionService;
+import jakarta.servlet.http.HttpSession;
+
+@Controller
+@RequestMapping(&quot;/user&quot;)
+<span class="fc" id="L26">public class UserPaymentConfirmationController {</span>
+	@Autowired
+	private ProductService productService;
+
+	@Autowired
+	private TransactionService transactionService;
+
+	@Autowired
+	private HttpSession session;
+
+	@Autowired
+	private SubscriptionService subscriptionService;
+
+	// 支払い確認画面
+	@GetMapping(&quot;/payment/confirmation&quot;)
+	public String getUserPaymentConfirmationPage(Model model) {
+		// Sessionからカートの情報を取得する
+<span class="nc" id="L43">		List&lt;ProductEntity&gt; cartList = (List&lt;ProductEntity&gt;) session.getAttribute(&quot;cart&quot;);</span>
+
+<span class="nc" id="L45">		System.out.println(cartList);</span>
+
+<span class="nc" id="L47">		model.addAttribute(&quot;cartList&quot;, cartList);</span>
+
+<span class="nc" id="L49">		return &quot;/user/userpaymentconfirm.html&quot;;</span>
+	}
+
+	// 支払い処理
+	@PostMapping(&quot;/payment/proceed&quot;)
+	public String proceedPayment(@RequestParam String creditCardNumber, @RequestParam String creditCardName,
+			@RequestParam String expiryDate, @RequestParam String cvvNumber) {
+		// 取得Cart的信息
+<span class="nc" id="L57">		List&lt;ProductEntity&gt; cart = (List&lt;ProductEntity&gt;) session.getAttribute(&quot;cart&quot;);</span>
+		// 取得用戶的信息
+<span class="nc" id="L59">		UserEntity user = (UserEntity) session.getAttribute(&quot;user&quot;);</span>
+		// 測試Cart是否為0，1
+		// 0的話付款失敗，1的話付款成功
+<span class="nc bnc" id="L62" title="All 2 branches missed.">		if (cart == null) {</span>
+<span class="nc" id="L63">			return &quot;redirect:/user/payment/confirmation&quot;;</span>
+		} else {
+			// ここでソースコード
+			// Serviceを使用して
+			// 把history和所有的item的对象都存入数据库
+<span class="nc" id="L68">			transactionService.transactionDataStore(cart, &quot;card&quot;, user.getUserId());</span>
+<span class="nc" id="L69">			return &quot;redirect:/user/payment/succeed&quot;;</span>
+		}
+	}
+
+	@GetMapping(&quot;/purchased/history&quot;)
+	public String getPurchasedHistory(Model model) {
+		// カートの情報を入れるためのListの宣言をする
+		// List&lt;ProductEntity&gt; cart = (List&lt;ProductEntity&gt;)
+		// session.getAttribute(&quot;cart&quot;);
+<span class="nc" id="L78">		UserEntity user = (UserEntity) session.getAttribute(&quot;user&quot;);</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">		if (user == null) {</span>
+<span class="nc" id="L80">			return login(&quot;/user/purchased/history&quot;);</span>
+		} else {
+<span class="nc" id="L82">			model.addAttribute(&quot;user&quot;, user);</span>
+			// 購入履歴を
+<span class="nc" id="L84">			List&lt;SubscriptionEntity&gt; history = subscriptionService.getHistory(user.getUserId());</span>
+<span class="nc" id="L85">			model.addAttribute(&quot;historys&quot;, history);</span>
+<span class="nc" id="L86">			System.out.println(history);</span>
+<span class="nc" id="L87">			return &quot;/user/userpurchasehistoryviewlist.html&quot;;		</span>
+		}
+	}
+
+	// Loginページに飛ばすメソッド
+	public String login(String url) {
+<span class="nc" id="L93">		session.setAttribute(&quot;backLoginpage&quot;, url);</span>
+<span class="nc" id="L94">		return &quot;redirect:/user/login&quot;;</span>
+
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span>RegisterAndLoginIntegrationTest (Mar 29, 2024 11:20:24 AM)</div></body></html>
